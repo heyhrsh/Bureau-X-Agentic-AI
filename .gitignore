@@ -1,0 +1,42 @@
+# =============================================================================
+# VIRTUAL ENVIRONMENT
+# Purpose: Ignores the folder containing all installed Python packages. This
+# folder can be very large and is specific to your local machine.
+# =============================================================================
+venv/
+.venv/
+
+# =============================================================================
+# PYTHON CACHE FILES
+# Purpose: Ignores auto-generated compiled files that Python creates to run
+# your code faster. They are not part of the source code.
+# =============================================================================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# =============================================================================
+# CREDENTIALS & SENSITIVE FILES
+# CRITICAL: This is the most important section. It prevents your private
+# Google Cloud keys from being accidentally uploaded to a public GitHub repo.
+# =============================================================================
+credentials/
+*.json
+
+# =============================================================================
+# IDE & OPERATING SYSTEM FILES
+# Purpose: Ignores configuration files created by code editors (like VS Code)
+# and operating systems. These are specific to your personal setup.
+# =============================================================================
+.vscode/
+.idea/
+.DS_Store
+
+# =============================================================================
+# LOG FILES
+# Purpose: If you add logging to your application, this will ignore the
+# generated log files.
+# =============================================================================
+logs/
+*.log

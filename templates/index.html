@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bureau-X | Urban Operations Intelligence Advisor</title>
+
+    <!-- Google Fonts for professional typography -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Google Maps API Script -->
+    <!-- IMPORTANT: Replace AIzaSy... with your own Google Maps API Key for deployment -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOWMOKbVmdjtMpfPRDHasVh2DDYunn2YU&callback=initMap"></script>
+
+    <style>
+        /* --- Base Styles & Layout --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(63, 204, 214, 0.15) transparent;
+        }
+
+        body {
+            font-family: 'Martian Mono', monospace;
+            background: #000;
+            color: #fff;
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+            /* Prevents page scroll */
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* --- Panel Configuration --- */
+        .left-panel,
+        .right-panel,
+        .center-workspace {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+        }
+
+        .left-panel,
+        .right-panel {
+            background-color: #0A1015;
+            width: 100%;
+        }
+
+        .left-panel {
+            max-width: 350px;
+            border-right: 1px dashed rgba(63, 204, 214, 0.5);
+            border-image: repeating-linear-gradient(to bottom, rgba(63, 204, 214, 0.5) 0, rgba(63, 204, 214, 0.5) 8px, transparent 8px, transparent 26px) 1;
+        }
+
+        .center-workspace {
+            flex: 1;
+            background: radial-gradient(circle at top right, rgba(63, 204, 214, 0.05) 0%, #0A141F 70%, #01090F 100%);
+            padding: 20px;
+        }
+
+        .right-panel {
+            max-width: 400px;
+            padding-top: 52px;
+            border-left: 1px dashed rgba(63, 204, 214, 0.5);
+            border-image: repeating-linear-gradient(to bottom, rgba(63, 204, 214, 0.5) 0, rgba(63, 204, 214, 0.5) 8px, transparent 8px, transparent 26px) 1;
+        }
+
+        /* --- Left Panel: Header & Alerts --- */
+        .logo-div {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-image {
+            mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+            -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        .datetime-div {
+            padding: 10px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: #3FCCD6;
+            margin-bottom: 20px;
+            background: rgba(63, 204, 214, 0.1);
+        }
+
+        .alerts-section {
+            flex-grow: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .alerts-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: repeating-linear-gradient(to right, rgba(63, 204, 214, 0.5) 0, rgba(63, 204, 214, 0.5) 8px, transparent 8px, transparent 26px);
+        }
+
+        .alerts-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .alerts-title {
+            font-weight: 700;
+            font-size: 20px;
+            color: #3FCCD6;
+        }
+
+        .tab-nav {
+            display: flex;
+            border-bottom: 1px solid #3FCCD6;
+            margin-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 10px 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 11.5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .tab-btn.active {
+            color: #3FCCD6;
+            border-bottom: 2px solid #3FCCD6;
+        }
+
+        .tab-btn:hover {
+            color: #fff;
+        }
+
+        .tab-content {
+            flex-grow: 1;
+            min-height: 0;
+            position: relative;
+        }
+
+        .alert-list {
+            position: absolute;
+            inset: 0;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .alert-list.active {
+            display: block;
+        }
+
+        .alert-card {
+            background: linear-gradient(135deg, #07171c 0%, #103940 100%);
+            border: 1px solid rgba(63, 204, 214, 0.5);
+            padding: 12px;
+            margin-bottom: 10px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .alert-card.selected {
+            opacity: 1;
+            box-shadow: 0 0 15px rgba(63, 204, 214, 0.5);
+        }
+
+        .alert-card:hover {
+            opacity: 0.8;
+        }
+
+        .alert-card.approved {
+            border-color: #28a745;
+            opacity: 0.6;
+        }
+
+        .alert-card.rejected {
+            border-color: #dc3545;
+            opacity: 0.3;
+        }
+
+        .alert-card-placeholder {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+        }
+
+        .alert-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #3FCCD6;
+            margin-bottom: 5px;
+        }
+
+        .alert-description {
+            font-size: 12px;
+            color: #CCCCCC;
+            line-height: 1.4;
+        }
+
+        /* --- Left Panel: User Profile & Settings --- */
+        .user-section {
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3FCCD6, #21374D);
+            border: 2px solid rgba(63, 204, 214, 0.7);
+            border-radius: 50%;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #0A1015;
+            position: relative;
+        }
+
+        .user-avatar::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background: #00ff00;
+            border: 2px solid #0A1015;
+            border-radius: 50%;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #3FCCD6;
+            margin-bottom: 2px;
+        }
+
+        .user-post {
+            font-size: 12px;
+            color: #CCCCCC;
+        }
+
+        .kebab-menu {
+            background: none;
+            border: none;
+            color: #3FCCD6;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .profile-menu {
+            position: absolute;
+            right: 0;
+            bottom: 100%;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, #07171c 0%, #103940 100%);
+            border: 1px solid rgba(63, 204, 214, 0.5);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+            display: none;
+            min-width: 180px;
+            z-index: 20;
+        }
+
+        .profile-menu.open {
+            display: block;
+        }
+
+        .profile-menu button {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #CFEFF2;
+            text-align: left;
+            padding: 10px 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            border-bottom: 1px solid rgba(63, 204, 214, 0.15);
+        }
+
+        .profile-menu button:last-child {
+            border-bottom: none;
+        }
+
+        .profile-menu button:hover {
+            background: rgba(63, 204, 214, 0.08);
+            color: #ffffff;
+        }
+
+        .settings-option {
+            display: flex;
+            align-items: center;
+            color: #3FCCD6;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .settings-option:hover {
+            color: #5FDCE6;
+            background: rgba(63, 204, 214, 0.08);
+        }
+
+        .settings-icon {
+            margin-right: 8px;
+            margin-left: 15px;
+            width: 35px;
+            height: 35px;
+        }
+
+        #settings-menu {
+            bottom: 38px;
+        }
+
+        /* --- Center Workspace --- */
+        .main-heading {
+            text-align: center;
+            color: #3FCCD6;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .alert-dashboard {
+            border: 2px solid #3FCCD6;
+            box-shadow: 0 0 12px rgba(63, 204, 214, 0.5);
+            padding: 20px;
+            position: relative;
+            flex-grow: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .alert-dashboard::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom-left, rgba(1, 9, 15, 0.8) 0%, rgba(10, 20, 31, 0.8) 100%);
+            pointer-events: none;
+        }
+
+        .alert-dashboard>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .alert-header {
+            margin-bottom: 20px;
+        }
+
+        .alert-level {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .alert-bullet {
+            width: 12px;
+            height: 12px;
+            background-color: #FF4D4D;
+            margin-right: 10px;
+            animation: blink 1s infinite;
+        }
+
+        .alert-level-text {
+            color: #FF4D4D;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .main-alert-text {
+            color: #F0F0F0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .metadata-info {
+            color: rgba(63, 204, 214, 0.75);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .actionables-div {
+            flex-grow: 1;
+            min-height: 0;
+            overflow-y: auto;
+        }
+
+        .action-card {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(7, 23, 28, 0.5) 0%, rgba(16, 57, 64, 0.5) 100%);
+            border-left: 1px solid #3FCCD6;
+            border-bottom: 1px solid #3FCCD6;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .action-content {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .action-icon {
+            font-size: 24px;
+            margin-right: 20px;
+            color: #3FCCD6;
+        }
+
+        .action-texts {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .action-title {
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .action-subtitle {
+            color: #3FCCD6;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            height: 50px;
+            padding: 0 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            border: 1px solid;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .approve-btn {
+            background-color: rgba(63, 214, 149, 0.25);
+            border-color: #3FD695;
+            color: #3FD695;
+        }
+
+        .approve-btn:hover {
+            background-color: rgba(63, 214, 149, 0.4);
+        }
+
+        .reject-btn {
+            background-color: transparent;
+            border-color: #E74C3C;
+            color: #E74C3C;
+        }
+
+        .reject-btn:hover {
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+
+        /* --- Right Panel --- */
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #3FCCD6;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .location-context {
+            margin-bottom: 20px;
+        }
+
+        .location-info,
+        .camera-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #FFFFFF;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            background: rgba(63, 204, 214, 0.2);
+            color: #3FCCD6;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            text-transform: uppercase;
+        }
+
+        .section-separator {
+            height: 1px;
+            background: repeating-linear-gradient(to right, rgba(63, 204, 214, 0.5) 0, rgba(63, 204, 214, 0.5) 8px, transparent 8px, transparent 26px);
+            margin: 20px 0;
+        }
+
+        .camera-feed {
+            width: 100%;
+            height: 250px;
+            background: #1a2832;
+            border: 1px solid #3FCCD6;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .camera-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.2) brightness(0.8);
+        }
+
+        .feed-corner-brackets {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #3FCCD6;
+        }
+
+        .bracket-tl {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .bracket-tr {
+            top: 10px;
+            right: 10px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .bracket-bl {
+            bottom: 10px;
+            left: 10px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .bracket-br {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* --- Animations & Effects --- */
+        @keyframes blink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes new-alert-glow {
+            0% {
+                box-shadow: 0 0 5px rgba(63, 204, 214, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(63, 204, 214, 0.8);
+            }
+
+            100% {
+                box-shadow: 0 0 5px rgba(63, 204, 214, 0.2);
+            }
+        }
+
+        .alert-card.new-alert {
+            animation: new-alert-glow 1.5s 2;
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(63, 204, 214, 0.15);
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover,
+        ::-webkit-scrollbar-thumb:active {
+            background: #3FCCD6;
+        }
+
+        *::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+
+        /* --- Modals --- */
+        #confirm-modal,
+        #switch-admin-modal,
+        #about-us-modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        #confirm-modal.open,
+        #switch-admin-modal.open,
+        #about-us-modal.open {
+            display: flex;
+        }
+
+        .confirm-glass {
+            width: min(760px, 92%);
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #07171c 0%, #103940 100%);
+            border: 1px solid rgba(63, 204, 214, 0.75);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6), 0 0 15px rgba(63, 204, 214, 0.5);
+            transform: translateY(14px) scale(.995);
+            opacity: 0;
+            animation: modal-pop .36s cubic-bezier(.2, .9, .2, 1) forwards;
+        }
+
+        .confirm-glass::before {
+            /* floating liquid effect */
+            content: '';
+            position: absolute;
+            left: -10%;
+            top: -35%;
+            width: 140%;
+            height: 180%;
+            background: radial-gradient(30% 30% at 10% 20%, rgba(63, 204, 214, 0.07), transparent 12%), radial-gradient(30% 30% at 90% 80%, rgba(255, 77, 77, 0.05), transparent 12%);
+            filter: blur(28px);
+            transform: rotate(8deg);
+            mix-blend-mode: screen;
+            animation: floaty 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .confirm-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+        }
+
+        .confirm-left {
+            flex: 0 0 56px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .confirm-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            color: #3FCCD6;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+        }
+
+        .confirm-body {
+            flex: 1;
+            color: #EEE;
+        }
+
+        .confirm-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #FFFFFF;
+        }
+
+        .confirm-message {
+            font-family: 'Montserrat', sans-serif;
+            color: #CFEFF2;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .confirm-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.02);
+            color: #FFFFFF;
+            transition: all 180ms ease;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn.confirm-yes {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(63, 204, 214, 0.22);
+            color: #DFFCF9;
+            min-width: 120px;
+        }
+
+        .btn.confirm-no {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.9);
+            min-width: 110px;
+        }
+
+        .confirm-success {
+            display: none;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 6px;
+            text-align: left;
+        }
+
+        .confirm-success.active {
+            display: flex;
+        }
+
+        .success-check {
+            width: 62px;
+            height: 62px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            background: linear-gradient(180deg, rgba(63, 214, 149, 0.18), rgba(63, 214, 149, 0.06));
+            color: #3FD695;
+            box-shadow: 0 10px 30px rgba(63, 214, 149, 0.06);
+        }
+
+        .success-text {
+            color: #DFFCF9;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        @keyframes modal-pop {
+            0% {
+                transform: translateY(12px) scale(.995);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes floaty {
+            0% {
+                transform: translateY(-8px) rotate(8deg) scale(1);
+            }
+
+            50% {
+                transform: translateY(8px) rotate(-4deg) scale(1.02);
+            }
+
+            100% {
+                transform: translateY(-8px) rotate(8deg) scale(1);
+            }
+        }
+
+        .admin-list {
+            margin-top: 6px;
+            max-height: 260px;
+            overflow-y: auto;
+            border: 1px solid rgba(63, 204, 214, 0.2);
+        }
+
+        .admin-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            cursor: pointer;
+            color: #CFEFF2;
+            border-bottom: 1px solid rgba(63, 204, 214, 0.12);
+        }
+
+        .admin-item:last-child {
+            border-bottom: none;
+        }
+
+        .admin-item:hover {
+            background: rgba(63, 204, 214, 0.08);
+            color: #FFFFFF;
+        }
+
+        .admin-avatar {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #0A1015;
+            background: linear-gradient(135deg, #3FCCD6, #21374D);
+            border: 1px solid rgba(63, 204, 214, 0.6);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Main container for the three-panel layout -->
+    <div class="container">
+
+        <!-- ====================================================================== -->
+        <!-- LEFT PANEL: ALERTS & USER PROFILE -->
+        <!-- ====================================================================== -->
+        <div class="left-panel">
+            <div class="logo-div">
+                <img src="{{ url_for('static', filename='images/bureau-x-logo.png') }}" alt="Bureau-X Logo"
+                    class="logo-image" style="max-width: 250px; height: auto;">
+            </div>
+            <div class="datetime-div" id="datetime"></div>
+
+            <!-- City Alerts Section -->
+            <div class="alerts-section">
+                <div class="alerts-header">
+                    <div class="alerts-title">CITY ALERTS</div>
+                </div>
+                <div class="tab-nav">
+                    <button id="live-tab" class="tab-btn active" onclick="showTab('live')">Live <span
+                            id="live-count">(0)</span></button>
+                    <button id="active-tab" class="tab-btn" onclick="showTab('active')">Active <span
+                            id="active-count">(0)</span></button>
+                    <button id="archived-tab" class="tab-btn" onclick="showTab('archived')">Archived <span
+                            id="archived-count">(0)</span></button>
+                </div>
+                <div class="tab-content">
+                    <div id="live-alerts-list" class="alert-list active">
+                        <div class="alert-card-placeholder">
+                            <div class="alert-description">Listening for new events...</div>
+                        </div>
+                    </div>
+                    <div id="active-alerts-list" class="alert-list"></div>
+                    <div id="archived-alerts-list" class="alert-list"></div>
+                </div>
+            </div>
+
+            <!-- User Profile & Settings Section -->
+            <div class="user-section">
+                <div class="user-profile">
+                    <div class="user-avatar">AD</div>
+                    <div class="user-info">
+                        <div class="user-name">Admin</div>
+                        <div class="user-post" id="operator-name">Crisis Coordinator</div>
+                    </div>
+                    <button class="kebab-menu" id="profile-menu-toggle">⋮</button>
+                    <div id="profile-menu" class="profile-menu">
+                        <button id="menu-switch-admin">Switch Admin</button>
+                        <button id="menu-logout">Logout</button>
+                    </div>
+                </div>
+                <div class="settings-option" id="settings-toggle">
+                    <svg class="settings-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69-.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" />
+                    </svg>
+                    <span>Settings</span>
+                </div>
+                <div id="settings-menu" class="profile-menu">
+                    <button id="menu-about-us">About Us</button>
+                    <button id="menu-share-online">Share This Online</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====================================================================== -->
+        <!-- CENTER WORKSPACE: MAIN DASHBOARD -->
+        <!-- ====================================================================== -->
+        <div class="center-workspace">
+            <div class="main-heading">URBAN OPERATIONS INTELLIGENCE ADVISOR</div>
+            <div class="alert-dashboard">
+                <div class="alert-header">
+                    <div class="alert-level">
+                        <div class="alert-bullet" id="alert-bullet"></div>
+                        <div class="alert-level-text" id="alert-level-text">SYSTEM STATUS</div>
+                    </div>
+                    <div class="main-alert-text" id="main-alert-text">System Online & Monitoring</div>
+                    <div class="metadata-info" id="metadata-info">Listening for events from data pipeline...</div>
+                </div>
+                <hr class="horizontal-break">
+                <div class="actionables-div" id="actionables-container">
+                    <!-- Placeholder content, will be replaced by JavaScript -->
+                    <div class="action-card">
+                        <div class="action-content">
+                            <div class="action-icon">⬅️</div>
+                            <div class="action-texts">
+                                <div class="action-title">Select an Alert</div>
+                                <div class="action-subtitle">Click on a city alert from the left panel to view details.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="horizontal-break">
+                <div class="action-buttons" id="action-buttons-container" style="display: none;">
+                    <button class="action-btn approve-btn" id="approve-btn">APPROVE</button>
+                    <button class="action-btn reject-btn" id="reject-btn">REJECT</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====================================================================== -->
+        <!-- RIGHT PANEL: CONTEXTUAL INFO (MAP & FEED) -->
+        <!-- ====================================================================== -->
+        <div class="right-panel">
+            <div class="location-context">
+                <div class="section-title">Location Context</div>
+                <div id="map"
+                    style="width: 100%; height: 300px; background: #1a2832; border: 1px solid #3FCCD6; margin-bottom: 20px;">
+                </div>
+                <div class="location-info">
+                    <div class="info-row"><span class="info-label">Coordinates:</span><span class="info-value"
+                            id="info-value-coordinates">--</span></div>
+                    <div class="info-row"><span class="info-label">Zone:</span><span class="info-value"
+                            id="info-value-zone">--</span></div>
+                    <div class="info-row"><span class="info-label">Granularity:</span><span class="info-value"
+                            id="info-value-granularity">--</span></div>
+                </div>
+            </div>
+            <div class="section-separator"></div>
+            <div class="live-asset-feed">
+                <div class="section-title">Live Asset Feed</div>
+                <div class="camera-feed">
+                    <video id="cctv-feed" class="camera-image" autoplay loop muted playsinline>
+                        <source src="{{ url_for('static', filename='images/normal.mp4') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="feed-corner-brackets bracket-tl"></div>
+                    <div class="feed-corner-brackets bracket-tr"></div>
+                    <div class="feed-corner-brackets bracket-bl"></div>
+                    <div class="feed-corner-brackets bracket-br"></div>
+                </div>
+                <div class="camera-info">
+                    <div class="info-row"><span class="info-label">Source:</span><span class="info-value"
+                            id="info-value-source">--</span></div>
+                    <div class="info-row"><span class="info-label">Confidence:</span><span class="info-value"
+                            id="info-value-confidence">--</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================================== -->
+    <!-- MODALS: For user interaction popups -->
+    <!-- ====================================================================== -->
+    <div id="confirm-modal" role="dialog" aria-modal="true">
+        <div class="confirm-glass" role="document">
+            <div class="confirm-content">
+                <div class="confirm-left">
+                    <div id="confirm-icon" class="confirm-icon">⚠️</div>
+                </div>
+                <div class="confirm-body">
+                    <div id="confirm-main">
+                        <div id="confirm-title" class="confirm-title">Confirm Action</div>
+                        <div id="confirm-message" class="confirm-message">Are you sure?</div>
+                        <div class="confirm-actions">
+                            <button id="confirm-yes" class="btn confirm-yes" type="button">Confirm</button>
+                            <button id="confirm-no" class="btn confirm-no" type="button">Cancel</button>
+                        </div>
+                    </div>
+                    <div id="confirm-success" class="confirm-success" aria-hidden="true">
+                        <div class="success-check">✔</div>
+                        <div>
+                            <div id="success-text" class="success-text">Done</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="switch-admin-modal" role="dialog" aria-modal="true">
+        <div class="confirm-glass" role="document">
+            <div class="confirm-content">
+                <div class="confirm-left">
+                    <div class="confirm-icon">👥</div>
+                </div>
+                <div class="confirm-body">
+                    <div class="confirm-title">SWITCH ADMIN</div>
+                    <div class="confirm-message">Select an operator account for this session.</div>
+                    <div id="admin-list" class="admin-list"></div>
+                    <div class="confirm-actions" style="margin-top:12px;">
+                        <button id="switch-admin-close" class="btn confirm-no" type="button">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="about-us-modal" role="dialog" aria-modal="true">
+        <div class="confirm-glass" role="document">
+            <div class="confirm-content" style="flex-direction: column;">
+                <div style="display: flex; align-items: flex-start; gap: 18px; width: 100%;">
+                    <div class="confirm-left">
+                        <div class="confirm-icon">ℹ️</div>
+                    </div>
+                    <div class="confirm-body">
+                        <div class="confirm-title">ABOUT BUREAU-X</div>
+                        <div class="confirm-message" style="font-size: 15px; max-width: 95%;">
+                            The Urban Operations Intelligence Advisor is a proof-of-concept dashboard powered by agentic
+                            AI. It monitors multiple real-time data streams to detect urban anomalies, auto-generates
+                            strategic response plans, and presents them to a human operator for final approval.
+                        </div>
+                    </div>
+                </div>
+                <div class="confirm-actions" style="width: 100%; justify-content: flex-end; padding-right: 15px;">
+                    <button id="about-us-close" class="btn confirm-no" type="button">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ======================================================================
+        // JAVASCRIPT LOGIC
+        // ======================================================================
+
+        // --- 1. GLOBAL STATE & ELEMENT SELECTORS ---
+        const elements = {
+            datetime: document.getElementById('datetime'),
+            liveTab: { btn: document.getElementById('live-tab'), list: document.getElementById('live-alerts-list'), count: document.getElementById('live-count') },
+            activeTab: { btn: document.getElementById('active-tab'), list: document.getElementById('active-alerts-list'), count: document.getElementById('active-count') },
+            archivedTab: { btn: document.getElementById('archived-tab'), list: document.getElementById('archived-alerts-list'), count: document.getElementById('archived-count') },
+            alertBullet: document.getElementById('alert-bullet'),
+            alertLevelText: document.getElementById('alert-level-text'),
+            mainAlertText: document.getElementById('main-alert-text'),
+            metadataInfo: document.getElementById('metadata-info'),
+            actionablesContainer: document.getElementById('actionables-container'),
+            approveBtn: document.getElementById('approve-btn'),
+            rejectBtn: document.getElementById('reject-btn'),
+            infoCoordinates: document.getElementById('info-value-coordinates'),
+            infoZone: document.getElementById('info-value-zone'),
+            infoGranularity: document.getElementById('info-value-granularity'),
+            infoSource: document.getElementById('info-value-source'),
+            infoConfidence: document.getElementById('info-value-confidence'),
+            cctvFeed: document.getElementById('cctv-feed'),
+            actionButtonsContainer: document.getElementById('action-buttons-container'),
+            settingsToggle: document.getElementById('settings-toggle'),
+            settingsMenu: document.getElementById('settings-menu'),
+            menuAboutUs: document.getElementById('menu-about-us'),
+            menuShareOnline: document.getElementById('menu-share-online'),
+            aboutUsModal: document.getElementById('about-us-modal'),
+            aboutUsCloseBtn: document.getElementById('about-us-close')
+        };
+        let processedEventIds = new Set();
+        let currentlySelectedCard = null;
+        let map;
+        let marker;
+
+        // --- 2. CORE UI FUNCTIONS ---
+
+        /**
+         * Updates the date and time display in the top-left corner.
+         */
+        function updateDateTime() {
+            const now = new Date();
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Kolkata', hour12: false };
+            const formatter = new Intl.DateTimeFormat('en-GB', options);
+            const parts = formatter.formatToParts(now);
+            const date = `${parts[0].value}/${parts[2].value}/${parts[4].value}`;
+            const time = `${parts[6].value}:${parts[8].value}:${parts[10].value}`;
+            elements.datetime.textContent = `${date}  |  ${time} IST`;
+        }
+
+        /**
+         * Returns a color code based on the alert's severity level.
+         * @param {string} severity - The severity level (e.g., "HIGH").
+         * @returns {string} A hex color code.
+         */
+        function getSeverityColor(severity) {
+            const key = String(severity || '').trim().toUpperCase();
+            const colors = { "LOW": "#3FCCD6", "MEDIUM": "#F0AD4E", "HIGH": "#E74C3C", "CRITICAL": "#FF0000" };
+            return colors[key] || "#FFFFFF";
+        }
+
+        /**
+         * Initializes the Google Map with custom dark-mode styling.
+         * This function is called by the Google Maps API script upon loading.
+         */
+        function initMap() {
+            const initialLocation = { lat: 12.9716, lng: 77.5946 }; // Bengaluru
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: initialLocation,
+                zoom: 11,
+                disableDefaultUI: true,
+                styles: [{ elementType: "geometry", stylers: [{ color: "#242f3e" }] }, { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] }, { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] }, { featureType: "administrative.locality", elementType: "labels.text.fill", stylers: [{ color: "#d59563" }] }, { featureType: "poi", elementType: "labels.text.fill", stylers: [{ color: "#d59563" }] }, { featureType: "road", elementType: "geometry", stylers: [{ color: "#38414e" }] }, { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#212a37" }] }, { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#9ca5b3" }] }, { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#746855" }] }, { featureType: "road.highway", elementType: "geometry.stroke", stylers: [{ color: "#1f2835" }] }, { featureType: "water", elementType: "geometry", stylers: [{ color: "#17263c" }] },],
+            });
+            marker = new google.maps.Marker({ position: initialLocation, map: map, title: "Crisis Location" });
+        }
+
+        /**
+         * Handles the logic for switching between the 'Live', 'Active', and 'Archived' tabs.
+         * @param {string} tabName - The name of the tab to display.
+         */
+        function showTab(tabName) {
+            ['live', 'active', 'archived'].forEach(name => {
+                const tab = elements[`${name}Tab`];
+                tab.btn.classList.remove('active');
+                tab.list.classList.remove('active');
+            });
+            const selectedTab = elements[`${tabName}Tab`];
+            selectedTab.btn.classList.add('active');
+            selectedTab.list.classList.add('active');
+        }
+
+        /**
+         * Updates the counters for each tab in the alerts section.
+         */
+        function updateTabCounters() {
+            elements.liveTab.count.textContent = `(${elements.liveTab.list.querySelectorAll('.alert-card').length})`;
+            elements.activeTab.count.textContent = `(${elements.activeTab.list.children.length})`;
+            elements.archivedTab.count.textContent = `(${elements.archivedTab.list.children.length})`;
+        }
+
+        /**
+         * Populates the central and right panels with details from a selected plan.
+         * @param {object} planData - The full data object for a plan and its source event.
+         */
+        function displayAlertDetails(planData) {
+            elements.actionButtonsContainer.style.display = 'flex';
+            const plan = planData.plan;
+            const eventData = planData.source_event;
+
+            // Update Map
+            if (map && marker && eventData.location?.coordinates) {
+                const newPos = { lat: eventData.location.coordinates.lat, lng: eventData.location.coordinates.lon };
+                if (newPos.lat && newPos.lng) {
+                    marker.setPosition(newPos); map.setCenter(newPos); map.setZoom(14);
+                }
+            }
+
+            // Update Video Feed based on data type
+            if (elements.cctvFeed) {
+                let videoSrc = "{{ url_for('static', filename='images/normal.mp4') }}";
+                if (eventData.dataType.includes('traffic')) videoSrc = "{{ url_for('static', filename='images/traffic.mp4') }}";
+                else if (eventData.dataType.includes('weather') || eventData.dataType.includes('water')) videoSrc = "{{ url_for('static', filename='images/weather.mp4') }}";
+                if (elements.cctvFeed.src !== videoSrc) {
+                    elements.cctvFeed.src = videoSrc; elements.cctvFeed.load();
+                }
+            }
+
+            // Update Dashboard Header
+            let severity = plan.priority || eventData?.severity || 'UNKNOWN';
+            const sevColor = getSeverityColor(severity);
+            elements.alertLevelText.textContent = `${severity.toUpperCase()} ALERT`;
+            elements.alertLevelText.style.color = sevColor;
+            elements.alertBullet.style.backgroundColor = sevColor;
+            elements.mainAlertText.textContent = plan.plan_title;
+            elements.metadataInfo.textContent = `SOURCE: ${eventData.metadata?.data_source || 'N/A'} | ID: ${eventData.eventId?.split('_')[1] || 'N/A'}`;
+
+            // Update Actionable Steps
+            elements.actionablesContainer.innerHTML = '';
+            const actionIcons = { "dispatch": "🚨", "divert": "🚧", "public": "📢", "monitor": "📊", "standby": "🏥", "assess": "🔍", "activate": "⚙️", "traffic": "🚦", "issue": "📝" };
+            plan.steps.forEach(step => {
+                const actionKeyword = step.action.split(' ')[0].toLowerCase();
+                const icon = actionIcons[actionKeyword] || '▶️';
+                elements.actionablesContainer.innerHTML += `<div class="action-card"><div class="action-content"><div class="action-icon">${icon}</div><div class="action-texts"><div class="action-title">${step.action}</div><div class="action-subtitle">${step.details}</div></div></div></div>`;
+            });
+
+            // Update Right Info Panel
+            elements.infoCoordinates.textContent = `${eventData.location?.coordinates?.lat.toFixed(2) || 'N/A'}° N, ${eventData.location?.coordinates?.lon.toFixed(2) || 'N/A'}° E`;
+            elements.infoZone.textContent = eventData.location?.zone || 'Unknown';
+            elements.infoGranularity.textContent = eventData.location?.granularity || 'N/A';
+            elements.infoSource.textContent = eventData.metadata?.data_source || 'N/A';
+            elements.infoConfidence.textContent = `${((eventData.metadata?.confidence || 0) * 100).toFixed(0)}%`;
+        }
+
+        // --- 3. DATA & API FUNCTIONS ---
+
+        /**
+         * Fetches all plans from the backend API and adds them to the UI.
+         */
+        async function fetchAllPlans() {
+            try {
+                const response = await fetch('/get-all-plans');
+                if (!response.ok) return;
+                const allPlans = await response.json();
+                allPlans.forEach(planData => addNewAlertToList(planData));
+            } catch (error) {
+                console.error('Error fetching plans:', error);
+            }
+        }
+
+        /**
+         * Creates and adds a new alert card to the "Live" tab list.
+         * @param {object} planData - The data for the new plan.
+         */
+        function addNewAlertToList(planData) {
+            const eventId = planData.source_event?.eventId;
+            if (!eventId || processedEventIds.has(eventId)) return;
+            processedEventIds.add(eventId);
+
+            const placeholder = elements.liveTab.list.querySelector('.alert-card-placeholder');
+            if (placeholder) placeholder.remove();
+
+            const card = document.createElement('div');
+            card.className = 'alert-card new-alert';
+            card.dataset.eventDetails = JSON.stringify(planData);
+            card.innerHTML = `<div class="alert-title">${planData.plan.plan_title}</div><div class="alert-description">${planData.plan.steps[0]?.details || 'Plan generated.'}</div>`;
+            card.onclick = () => handleAlertCardClick(card);
+            elements.liveTab.list.prepend(card);
+
+            setTimeout(() => card.classList.remove('new-alert'), 3000);
+            updateTabCounters();
+        }
+
+        // --- 4. COMPONENT LOGIC (HANDLERS, MODALS, MENUS) ---
+
+        /**
+         * Handles the click event on any alert card.
+         * @param {HTMLElement} cardElement - The alert card that was clicked.
+         */
+        function handleAlertCardClick(cardElement) {
+            document.querySelectorAll('.alert-card').forEach(c => c.classList.remove('selected'));
+            cardElement.classList.add('selected');
+            currentlySelectedCard = cardElement;
+            elements.approveBtn.disabled = false;
+            elements.rejectBtn.disabled = false;
+            const planData = JSON.parse(cardElement.dataset.eventDetails);
+            displayAlertDetails(planData);
+        }
+
+        /**
+         * Displays and configures the main confirmation modal.
+         * @param {object} options - Configuration for the modal (type, message, onConfirm).
+         */
+        function showConfirmationPopup(options) {
+            const modal = document.getElementById('confirm-modal');
+            const [titleEl, msgEl, iconEl, yesBtn, noBtn, main, success, successTxt] = [
+                'confirm-title', 'confirm-message', 'confirm-icon', 'confirm-yes', 'confirm-no',
+                'confirm-main', 'confirm-success', 'success-text'
+            ].map(id => document.getElementById(id));
+
+            main.style.display = 'block';
+            success.classList.remove('active');
+
+            const config = {
+                approve: { title: 'APPROVE PLAN', icon: '✔', color: '#3FD695', confirm: 'Approve', successMsg: 'Plan Approved & Activated' },
+                reject: { title: 'REJECT PLAN', icon: '✖', color: '#E74C3C', confirm: 'Reject', successMsg: 'Plan Rejected & Archived' },
+                logout: { title: 'LOGOUT', icon: '⏻', color: '#E74C3C', confirm: 'Logout', successMsg: 'Session Closed' }
+            };
+            const current = config[options.type] || {};
+
+            titleEl.textContent = current.title;
+            msgEl.textContent = options.message;
+            iconEl.textContent = current.icon;
+            iconEl.style.color = current.color;
+            yesBtn.textContent = current.confirm;
+            yesBtn.style.borderColor = (options.type === 'reject' || options.type === 'logout') ? 'rgba(231, 76, 60, 0.4)' : 'rgba(63, 204, 214, 0.22)';
+            yesBtn.style.color = (options.type === 'reject' || options.type === 'logout') ? '#FFB8B2' : '#DFFCF9';
+
+            const handleConfirm = () => {
+                if (options.onConfirm) options.onConfirm();
+                main.style.display = 'none';
+                successTxt.textContent = current.successMsg;
+                success.classList.add('active');
+                setTimeout(closeModal, 1500);
+            };
+
+            const closeModal = () => {
+                modal.classList.remove('open');
+                yesBtn.removeEventListener('click', handleConfirm);
+                noBtn.removeEventListener('click', closeModal);
+            };
+
+            yesBtn.addEventListener('click', handleConfirm, { once: true });
+            noBtn.addEventListener('click', closeModal, { once: true });
+            modal.classList.add('open');
+        }
+
+        /**
+         * Initializes and displays the "Switch Admin" modal.
+         */
+        function openSwitchAdminModal() {
+            const modal = document.getElementById('switch-admin-modal');
+            const listEl = document.getElementById('admin-list');
+            listEl.innerHTML = '';
+
+            const defaults = ['Harsh Raj Singh Rathore', 'Priyosmita Das'];
+            const stored = JSON.parse(localStorage.getItem('adminHistory') || '[]');
+            const names = Array.from(new Set([...defaults, ...stored]));
+
+            names.forEach(name => {
+                const initials = name.split(/\s+/).filter(Boolean).slice(0, 2).map(p => p[0].toUpperCase()).join('');
+                const row = document.createElement('div');
+                row.className = 'admin-item';
+                row.innerHTML = `<div class="admin-avatar">${initials}</div><div>${name}</div>`;
+                row.onclick = () => { setCurrentOperator(name); modal.classList.remove('open'); };
+                listEl.appendChild(row);
+            });
+
+            modal.classList.add('open');
+            document.getElementById('switch-admin-close').onclick = () => modal.classList.remove('open');
+        }
+
+        /**
+         * Sets the current operator in the UI and localStorage.
+         * @param {string} name - The name of the operator.
+         */
+        function setCurrentOperator(name) {
+            const operatorNameEl = document.getElementById('operator-name');
+            const avatarEl = document.querySelector('.user-avatar');
+            const initials = name.split(/\s+/).filter(Boolean).slice(0, 2).map(p => p[0].toUpperCase()).join('');
+
+            localStorage.setItem('currentOperator', name);
+            operatorNameEl.textContent = name;
+            avatarEl.textContent = initials || 'AD';
+
+            const history = JSON.parse(localStorage.getItem('adminHistory') || '[]');
+            if (!history.includes(name)) {
+                history.unshift(name);
+                localStorage.setItem('adminHistory', JSON.stringify(Array.from(new Set(history))));
+            }
+        }
+
+        // --- 5. INITIALIZATION & EVENT LISTENERS ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial Setup
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            setInterval(fetchAllPlans, 5000);
+            fetchAllPlans();
+            showTab('live');
+            updateTabCounters();
+
+            // Set initial operator
+            const storedOperator = localStorage.getItem('currentOperator');
+            if (!localStorage.getItem('adminHistory')) {
+                localStorage.setItem('adminHistory', JSON.stringify(["Harsh Raj Singh Rathore", "Priyosmita Das"]));
+            }
+            setCurrentOperator(storedOperator || "Harsh Raj Singh Rathore");
+
+            // Main Action Button Listeners
+            elements.approveBtn.addEventListener('click', () => {
+                if (!currentlySelectedCard) return;
+                showConfirmationPopup({
+                    type: "approve",
+                    message: "Approve this plan for resolution?",
+                    onConfirm: () => {
+                        currentlySelectedCard.classList.add('approved');
+                        elements.activeTab.list.prepend(currentlySelectedCard);
+                        elements.approveBtn.disabled = true;
+                        elements.rejectBtn.disabled = true;
+                        updateTabCounters();
+                    }
+                });
+            });
+
+            elements.rejectBtn.addEventListener('click', () => {
+                if (!currentlySelectedCard) return;
+                showConfirmationPopup({
+                    type: "reject",
+                    message: "Are you sure you want to reject this plan?",
+                    onConfirm: () => {
+                        currentlySelectedCard.classList.add('rejected');
+                        elements.archivedTab.list.prepend(currentlySelectedCard);
+                        elements.approveBtn.disabled = true;
+                        elements.rejectBtn.disabled = true;
+                        updateTabCounters();
+                    }
+                });
+            });
+
+            // Menu and Modal Toggle Listeners
+            document.getElementById('profile-menu-toggle').addEventListener('click', e => {
+                e.stopPropagation();
+                elements.settingsMenu.classList.remove('open');
+                document.getElementById('profile-menu').classList.toggle('open');
+            });
+
+            elements.settingsToggle.addEventListener('click', e => {
+                e.stopPropagation();
+                document.getElementById('profile-menu').classList.remove('open');
+                elements.settingsMenu.classList.toggle('open');
+            });
+
+            document.getElementById('menu-switch-admin').addEventListener('click', () => {
+                document.getElementById('profile-menu').classList.remove('open');
+                openSwitchAdminModal();
+            });
+
+            document.getElementById('menu-logout').addEventListener('click', () => {
+                document.getElementById('profile-menu').classList.remove('open');
+                showConfirmationPopup({
+                    type: 'logout', message: 'Do you really want to close this session?',
+                    onConfirm: () => {
+                        try { fetch('/shutdown', { method: 'POST' }); } catch (e) { }
+                        window.close();
+                        setTimeout(() => { window.location.href = 'about:blank'; }, 200);
+                    }
+                });
+            });
+
+            elements.menuAboutUs.addEventListener('click', () => {
+                elements.settingsMenu.classList.remove('open');
+                elements.aboutUsModal.classList.add('open');
+            });
+            elements.aboutUsCloseBtn.addEventListener('click', () => elements.aboutUsModal.classList.remove('open'));
+
+            // Global click listener to close menus when clicking outside
+            document.addEventListener('click', () => {
+                document.getElementById('profile-menu').classList.remove('open');
+                elements.settingsMenu.classList.remove('open');
+            });
+        });
+    </script>
+</body>
+
+</html>

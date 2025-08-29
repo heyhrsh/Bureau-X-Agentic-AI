@@ -1,0 +1,70 @@
+.cursorrules - Project Guidelines for Bureau-X
+
+## Project Overview
+This file defines the rules and guidelines for the Urban Operations Intelligence Advisor (Bureau-X), an Agentic AI prototype. The project leverages a custom agentic loop architecture, Python 3.10, Google Cloud (Firebase, Vertex AI), and synthetic data to simulate 13 urban data categories for a Bengaluru-based demo. The primary goal is to deliver a convincing Proof of Concept (POC).
+
+## Language and Environment
+Python Version: Strictly Python 3.10 for library compatibility.
+
+Virtual Environment: All development must occur within a virtual environment (venv). Use python -m venv venv to create it.
+
+Dependencies: All required packages are managed in requirements.txt. Install using pip install -r requirements.txt.
+
+## Project Structure & Modularity
+Flat Structure: The project uses a flat, modular structure for simplicity and clarity in this prototype phase.
+
+main.py: The central orchestrator that runs the agentic loop.
+
+model.py: Handles all interactions with the Gemini LLM, including the perceive, reason, plan, and adapt logic.
+
+protocol.py: The Flask web server for the UI (index.html) and API endpoints.
+
+data_simulator.py & data_dispatcher.py: Scripts for generating and streaming synthetic data.
+
+data_schema.py, locations.py, validate_data.py: Configuration and utility modules.
+
+Single Responsibility: Each function is designed for a single purpose (e.g., perceive() formats data, plan() generates a strategy).
+
+Naming Conventions: Use snake_case for variables/functions and PascalCase for classes.
+
+## Technology Integration
+Firebase: Used as the real-time message broker for streaming synthetic events from the dispatcher to the main agent.
+
+Google Cloud (Vertex AI): The Gemini 1.5 Pro model is accessed via Vertex AI for all generative tasks (reasoning and planning). Authentication is handled via a service account key.
+
+Synthetic Data: The data_simulator.py script generates a narrative-driven scenario with anomalies to robustly test the agent's cognitive loop.
+
+## Version Control (Git & GitHub)
+Repository: A public GitHub repository will be used to host the final, polished code.
+
+Branching Strategy: Use main for the final stable version. Feature development should happen in separate branches (e.g., feature/ui-update).
+
+Commits: Write clear, descriptive commit messages (e.g., "Feat: Implement adaptive logic in model.py").
+
+Security: The .gitignore file is configured to explicitly exclude the credentials/ directory and any .json key files.
+
+## Testing & Validation
+Unit Testing: Key functions like is_event_valid() are tested implicitly through the data pipeline. A test_protocol.py script is included for isolated testing of the Flask API.
+
+Integration Testing: The primary test is an end-to-end run of the simulated flood scenario, verifying that events flow from the dispatcher to the agent and that plans appear on the UI.
+
+Manual Checks: The system is validated by running the four main scripts (data_simulator, protocol, main, data_dispatcher) and observing the terminal outputs and frontend behavior.
+
+## Documentation Standards
+Docstrings: All Python functions have Google-style docstrings explaining their purpose, arguments, and return values.
+
+Code Comments: Inline comments are used to explain complex logic or important decision points.
+
+Frontend Comments: The index.html file is commented to delineate the HTML structure, CSS sections, and JavaScript logic blocks.
+
+README.md: A comprehensive README.md will serve as the primary external documentation for the project on GitHub.
+
+## Deployment & Demo
+Local Deployment: The project is designed to be run locally. The Flask server runs on localhost:5000.
+
+Demo Procedure: A live demo consists of running the four terminal processes and interacting with the web interface in real-time.
+
+## Version
+Rule Version: 1.0
+
+Updated: 2025-07-14
