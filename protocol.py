@@ -21,10 +21,11 @@ all_received_plans = []
 # -------------------------
 
 
-@app.route("/")
+@app.route('/')
 def dashboard():
-    """Serves the main dashboard page (index.html)."""
-    return render_template("index.html")
+    """Serves the main dashboard page and passes the API key."""
+    google_api_key = "AIzaSyAjVZTu_DgP1P-89I8-VcJAhnMO3Vv-7Yw"
+    return render_template('index.html', maps_api_key=google_api_key)
 
 
 @app.route("/recommend", methods=["POST"])
