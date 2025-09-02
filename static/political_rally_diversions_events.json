@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Rally Assembly at Freedom Park Exceeds Permit",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Confirm Crowd Numbers", "details": "Event control to verify actual attendance and communicate concerns if it exceeds safety thresholds." },
+          { "action": "Sound-Check Safety", "details": "Enforce safe decibel levels and structural safety checks for stages and sound setups." },
+          { "action": "Preposition Crowd Management", "details": "Deploy police and marshals to manage ingress and prevent unauthorized route changes." },
+          { "action": "Set Contingency Routes", "details": "Plan alternate dispersal routes and inform public transport operators." },
+          { "action": "Monitor Social Channels", "details": "Watch for escalation signals and misinformation to intervene early." }
+        ]
+      },
+      "source_event": {
+        "eventId": "publ_001_rally_assemble",
+        "dataType": "public_event",
+        "timestamp": "2025-08-31T02:20:00.000Z",
+        "location": {
+          "zone": "Freedom Park",
+          "coordinates": { "lat": 12.9765, "lon": 77.5850 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "EVENT_PERMIT_DB" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "CBD Road Closures & Rolling Diversions",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Implement Rolling Closures", "details": "Police to manage timed closures along Seshadri Rd and Palace Rd to facilitate rally movements." },
+          { "action": "Reconfigure Public Transport", "details": "BMTC to use alternate corridors and increase capacity on diversion routes." },
+          { "action": "Coordinate with Businesses", "details": "Notify CBD businesses about closures and suggest staff arrival adjustments." },
+          { "action": "Open Info Points", "details": "Set up public information booths for commuters to get route and timing updates." },
+          { "action": "Monitor Congestion Spread", "details": "TMC to track secondary congested routes and deploy mitigations as needed." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_002_cbd_closures",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T02:35:00.000Z",
+        "location": {
+          "zone": "Central Business District",
+          "coordinates": { "lat": 12.9740, "lon": 77.5920 },
+          "granularity": "district"
+        },
+        "metadata": { "confidence": 0.93, "data_source": "BTP_TMC" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Platform Overcrowding at Majestic Interchange",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Controlled Platform Access", "details": "Implement entry controls and staggered boarding to reduce platform density and risk." },
+          { "action": "Run Additional Services", "details": "BMRCL to increase train frequency if power and headways permit to clear platforms." },
+          { "action": "Deploy Crowd Rescue Teams", "details": "Station medics and evacuation teams to handle fainting or crush incidents." },
+          { "action": "Public Announcements", "details": "Provide frequent update loops to manage passenger expectations and guide dispersal." },
+          { "action": "Post-Rally Transit Plan", "details": "Coordinate post-event transport capacity to avoid prolonged overcrowding at interchange nodes." }
+        ]
+      },
+      "source_event": {
+        "eventId": "metr_003_platform_overcrowd",
+        "dataType": "public_transit_metro",
+        "timestamp": "2025-08-31T02:45:00.000Z",
+        "location": {
+          "zone": "Majestic (KSR/Metro Interchange)",
+          "coordinates": { "lat": 12.9784, "lon": 77.5726 },
+          "granularity": "station"
+        },
+        "metadata": { "confidence": 0.94, "data_source": "CCTV_ANALYTICS" }
+      }
+    }
+  ]
+  

@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Pressure Drop Suggesting Main Rupture (Jayanagar)",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Confirm Rupture Location", "details": "BWSSB SCADA to pinpoint the rupture via pressure telemetry and field probes." },
+          { "action": "Warn Residents", "details": "Issue advisories on possible supply disruption and contamination; request water conservation." },
+          { "action": "Stage Repair Crews", "details": "Mobilize BWSSB repair teams with pumps, valves and spares to the suspected 30th Cross area." },
+          { "action": "Provide Temporary Supply", "details": "Prepare water tankers to service critical facilities and affected households." },
+          { "action": "Monitor Turbidity", "details": "Lab test water quality at distribution endpoints and issue boil-water notices if needed." }
+        ]
+      },
+      "source_event": {
+        "eventId": "wate_001_pressure_drop",
+        "dataType": "water_quality",
+        "timestamp": "2025-08-31T06:20:00.000Z",
+        "location": {
+          "zone": "Jayanagar 4th T Block",
+          "coordinates": { "lat": 12.9250, "lon": 77.5938 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "BWSSB_SCADA" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Street Flooding on Jayanagar 30th Cross",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Block Flooded Crossings", "details": "Close affected intersections and divert traffic to avoid accidents and two-wheeler skids." },
+          { "action": "Deploy Pumping Units", "details": "Activate emergency pumps to remove standing water and protect adjacent properties." },
+          { "action": "Assist Vulnerable Road Users", "details": "Provide help to stranded two-wheeler riders and elderly pedestrians; arrange temporary shelters." },
+          { "action": "Coordinate with Traffic Police", "details": "Implement diversion plans and place signage to manage flow." },
+          { "action": "Document Damage", "details": "Record property and road damage for repair prioritization and insurance claims." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_002_street_flooding",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T06:26:00.000Z",
+        "location": {
+          "zone": "Jayanagar 30th Cross",
+          "coordinates": { "lat": 12.9241, "lon": 77.5905 },
+          "granularity": "intersection"
+        },
+        "metadata": { "confidence": 0.92, "data_source": "CCTV_ANALYTICS" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Preventive Transformer Shutdown (Jayanagar)",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Isolate Affected Transformer", "details": "BESCOM to perform preventive shutdown of distribution transformer at risk of water ingress." },
+          { "action": "Activate Relief Supply", "details": "Provide alternate supply to essential services where possible and prioritize restoration post-clearance." },
+          { "action": "Shelter & Relief", "details": "Coordinate with BBMP for temporary shelter and potable water distribution for impacted residents." },
+          { "action": "Safety Inspections", "details": "Inspect electrical infrastructure post-inundation before re-energizing to avoid short-circuits." },
+          { "action": "Post-Incident Repair", "details": "Schedule expedited transformer repairs and road reinstatement once waters recede." }
+        ]
+      },
+      "source_event": {
+        "eventId": "powe_003_preventive_shutdown",
+        "dataType": "power_outage",
+        "timestamp": "2025-08-31T06:35:00.000Z",
+        "location": {
+          "zone": "Jayanagar Sector",
+          "coordinates": { "lat": 12.9265, "lon": 77.5960 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.95, "data_source": "BESCOM_GRID" }
+      }
+    }
+  ]
+  

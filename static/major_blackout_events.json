@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Substation Relay Trip at Hoody",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Confirm Affected Feeders", "details": "BESCOM to identify all feeders and estimate customer impact across Whitefield and Mahadevapura." },
+          { "action": "Dispatch Repair Crew", "details": "Send relay and transformer specialists to assess relay trip cause and initiate repairs." },
+          { "action": "Protect Critical Facilities", "details": "Ensure hospitals and emergency services have uninterrupted power via alternate feeds/generators." },
+          { "action": "Issue Outage Notices", "details": "Publicly publish affected areas and restoration ETA; set up helpdesk for complaints." },
+          { "action": "Implement Load Management", "details": "If restoration is delayed, coordinate controlled load-shedding to stabilize the grid." }
+        ]
+      },
+      "source_event": {
+        "eventId": "powe_001_substation_trip",
+        "dataType": "power_outage",
+        "timestamp": "2025-08-31T15:00:00.000Z",
+        "location": {
+          "zone": "Hoody Substation",
+          "coordinates": { "lat": 12.9970, "lon": 77.7140 },
+          "granularity": "facility"
+        },
+        "metadata": { "confidence": 0.96, "data_source": "BESCOM_GRID" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Traffic Signal Failure in Mahadevapura",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Deploy Manual Control Teams", "details": "Position traffic marshals at major junctions to manage flow and prioritize arterials." },
+          { "action": "Coordinate with BESCOM", "details": "Request temporary power solutions (generators/UPS) for critical traffic infrastructure." },
+          { "action": "Public Transit Adjustments", "details": "BMTC to reroute buses away from the most affected junctions to maintain schedule integrity." },
+          { "action": "Real-time Updates", "details": "Use traffic portals and radio to inform commuters about delays and alternate routes." },
+          { "action": "Safety Enforcement", "details": "Police to enforce lane discipline and clear obstructions to reduce queue formation." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_002_signal_dark",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T15:07:00.000Z",
+        "location": {
+          "zone": "Mahadevapura Junctions",
+          "coordinates": { "lat": 12.9963, "lon": 77.6950 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.93, "data_source": "CCTV_ANALYTICS" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Metro Frequency Reduced on KR Puram–Whitefield",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Initiate Shuttle Operations", "details": "BMRCL to operate short-shuttle services to maintain connectivity on affected stretch." },
+          { "action": "Manage Passenger Flow", "details": "Deploy platform staff and police at KR Puram and Whitefield to control boarding and queuing." },
+          { "action": "Coordinate Power Restoration", "details": "Work with BESCOM to prioritise auxiliary feeds for metro traction power and signalling." },
+          { "action": "Provide Surface Alternatives", "details": "Arrange additional BMTC buses and ride-hailing coordination to absorb stranded passengers." },
+          { "action": "Continuous Monitoring", "details": "SCADA and operations teams to monitor auxiliary power stability and update service bulletins." }
+        ]
+      },
+      "source_event": {
+        "eventId": "metr_003_headway_cut",
+        "dataType": "public_transit_metro",
+        "timestamp": "2025-08-31T15:15:00.000Z",
+        "location": {
+          "zone": "KR Puram–Whitefield Stretch",
+          "coordinates": { "lat": 13.0082, "lon": 77.7043 },
+          "granularity": "corridor"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "BMRCL_SCADA" }
+      }
+    }
+  ]
+  

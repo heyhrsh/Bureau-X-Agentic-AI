@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "DC Fast Charger Outage in Electronic City",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Confirm Breaker Trip Cause", "details": "Assess substation logs to identify the breaker trip root cause and isolate affected circuits." },
+          { "action": "Stage Repair Teams", "details": "Send electrical crews to reset breakers and replace damaged components if needed." },
+          { "action": "Notify EV Users", "details": "Push outage notifications and direct users to alternative charging hubs or mobile charging units." },
+          { "action": "Provide On-site Assistance", "details": "Offer towing or jump-start services for stranded EVs where safe to do so." },
+          { "action": "Capture Lessons", "details": "Log incident for improving redundancy at critical fast-charging nodes." }
+        ]
+      },
+      "source_event": {
+        "eventId": "powe_001_dc_fast_offline",
+        "dataType": "power_outage",
+        "timestamp": "2025-08-31T05:58:00.000Z",
+        "location": {
+          "zone": "Electronic City Phase 1",
+          "coordinates": { "lat": 12.8390, "lon": 77.6770 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "EV_OSP_NOC" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Ramps Blocked by Out-of-charge EVs",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Immediate Removal of Stranded EVs", "details": "Dispatch tow trucks and clear stalled vehicles from ramps to prevent collisions and restore flow." },
+          { "action": "Investigate Rear-end Collisions", "details": "Police to document collision scenes and ensure injured parties receive care." },
+          { "action": "Increase Tow Capacity", "details": "Temporary contract additional tow operators to meet surge demand." },
+          { "action": "Provide Emergency Charging", "details": "Deploy mobile rapid-charging units to revive low-battery vehicles and clear lanes." },
+          { "action": "Traffic Flow Alerts", "details": "Send live updates and suggested detour routes to drivers via navigation platforms." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_002_ramp_block",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T06:05:00.000Z",
+        "location": {
+          "zone": "Elevated Expressway Ramps",
+          "coordinates": { "lat": 12.8520, "lon": 77.6675 },
+          "granularity": "intersection"
+        },
+        "metadata": { "confidence": 0.89, "data_source": "BTP_TMC" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Queue Unrest at Electronic City Charging Hub",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Request Police Presence", "details": "Dispatch local police to rapidly de-escalate disputes and ensure public order." },
+          { "action": "Security & Mediation", "details": "Hub security to separate parties and facilitate mediated resolutions to conflicts." },
+          { "action": "Provide Priority Assistance", "details": "Identify and prioritise EVs with critical battery levels for emergency service." },
+          { "action": "Communicate Next Steps", "details": "Inform queues about expected restoration times and available alternatives to reduce panic." },
+          { "action": "Review Hub Protocols", "details": "Assess need for queue management, booking systems or security upgrades to prevent future unrest." }
+        ]
+      },
+      "source_event": {
+        "eventId": "crim_003_queue_unrest",
+        "dataType": "crime_report",
+        "timestamp": "2025-08-31T06:12:00.000Z",
+        "location": {
+          "zone": "Electronic City Charging Hub",
+          "coordinates": { "lat": 12.8475, "lon": 77.6605 },
+          "granularity": "facility"
+        },
+        "metadata": { "confidence": 0.86, "data_source": "POLICE_112" }
+      }
+    }
+  ]
+  

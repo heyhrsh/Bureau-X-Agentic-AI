@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Feeder Fault Affecting EV Charging Hubs (Whitefield)",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Confirm Affected Sites", "details": "EV network operator to list offline chargers and communicate expected restoration ETA to users." },
+          { "action": "Deploy Power Crew", "details": "BESCOM to dispatch line crew to repair feeder fault and restore supply to fast-charging hubs." },
+          { "action": "Temporary Charging Allocation", "details": "Identify nearby operational chargers and inform stranded EVs via app nudges and signage." },
+          { "action": "Traffic Flow Guidance", "details": "Manage queueing at hubs to keep carriageways clear; use marshals to prevent lane blocking." },
+          { "action": "Customer Support Outreach", "details": "Provide assistance to stranded vehicles (tow/ride options) and compensate disrupted bookings as per policy." }
+        ]
+      },
+      "source_event": {
+        "eventId": "powe_001_ev_feeder_trip",
+        "dataType": "power_outage",
+        "timestamp": "2025-08-31T08:30:00.000Z",
+        "location": {
+          "zone": "Whitefield",
+          "coordinates": { "lat": 12.9698, "lon": 77.7499 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.92, "data_source": "BESCOM_GRID" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Queue Blocking on ITPL Main Road",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Clear Lane Blockers", "details": "Dispatch towing and marshaling teams to move stranded EVs off the main carriageway to safe holding bays." },
+          { "action": "Traffic Diversion", "details": "Implement short-term diversions to maintain throughput and prevent tailbacks toward Hope Farm." },
+          { "action": "Activate Roadside Support", "details": "Provide mobile charging vans for low-battery EVs to clear queues quickly." },
+          { "action": "Enforce Parking Rules", "details": "Prevent double-parking and unauthorized waiting that reduces lane capacity." },
+          { "action": "Communicate to Commuters", "details": "Use local radio and apps to advise drivers of the outage and suggest alternatives." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_002_ev_queue_block",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T08:38:00.000Z",
+        "location": {
+          "zone": "ITPL Main Rd",
+          "coordinates": { "lat": 12.9884, "lon": 77.7370 },
+          "granularity": "intersection"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "CCTV_ANALYTICS" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Altercation at EPIP Charging Plaza",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Dispatch Police Unit", "details": "Send nearest police patrol to de-escalate altercation and secure the site to prevent wider unrest." },
+          { "action": "Separate Parties & Mediate", "details": "Mall/security staff to separate involved individuals; police mediate and file reports as needed." },
+          { "action": "Provide Alternate Resources", "details": "Offer temporary charging or towing assistance to defuse conflict over access." },
+          { "action": "Monitor Crowd", "details": "CCTV to track crowd behavior; alert city ops if escalation risk grows." },
+          { "action": "Document Incident", "details": "Log incident for EV operator and police follow-up; assess need for increased security at hubs." }
+        ]
+      },
+      "source_event": {
+        "eventId": "crim_003_scuffle_alert",
+        "dataType": "crime_report",
+        "timestamp": "2025-08-31T08:45:00.000Z",
+        "location": {
+          "zone": "EPIP Charging Plaza",
+          "coordinates": { "lat": 12.9855, "lon": 77.7275 },
+          "granularity": "facility"
+        },
+        "metadata": { "confidence": 0.88, "data_source": "POLICE_112" }
+      }
+    }
+  ]
+  

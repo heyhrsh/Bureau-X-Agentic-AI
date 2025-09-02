@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Hazardous AQI Spike in Peenya",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Issue Immediate Health Advisory", "details": "Advise residents to stay indoors, close windows, and use masks; warn vulnerable groups particularly." },
+          { "action": "Inspect Industrial Sources", "details": "Environment dept to dispatch inspectors to suspected facilities for stack malfunction checks." },
+          { "action": "Limit Outdoor Activities", "details": "Suspend outdoor school activities and halt outdoor construction in affected zones." },
+          { "action": "Distribute Protective Kits", "details": "Prepare mask distribution for exposed workers and inform clinics to expect respiratory upticks." },
+          { "action": "Monitor & Model Dispersion", "details": "Run dispersion models to forecast affected downwind neighborhoods and adjust advisories." }
+        ]
+      },
+      "source_event": {
+        "eventId": "aqi_001_spike_detected",
+        "dataType": "air_quality_index",
+        "timestamp": "2025-08-31T04:30:00.000Z",
+        "location": {
+          "zone": "Peenya Industrial Area",
+          "coordinates": { "lat": 13.0116, "lon": 77.5183 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.93, "data_source": "AQI_SENSOR_NETWORK" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Stay-Indoors Advisory for Schools & Residents",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Enforce School Precautions", "details": "School authorities to keep students indoors and halt outdoor sports until AQI normalizes." },
+          { "action": "Set Up Medical Helpline", "details": "Public health to establish helpline and triage centers for respiratory distress reports." },
+          { "action": "Coordinate with Industries", "details": "Issue temporary operational restrictions to identified polluters until investigations complete." },
+          { "action": "Public Transport Measures", "details": "Encourage ventilation controls on buses and provide masks at major stops." },
+          { "action": "Frequent AQI Updates", "details": "Publish hourly AQI readings and targeted advisories to affected neighborhoods." }
+        ]
+      },
+      "source_event": {
+        "eventId": "publ_002_health_advisory",
+        "dataType": "public_event",
+        "timestamp": "2025-08-31T04:37:00.000Z",
+        "location": {
+          "zone": "Yeshwanthpur–Peenya Schools",
+          "coordinates": { "lat": 13.0285, "lon": 77.5434 },
+          "granularity": "district"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "CIVIL_DEFENCE" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Distribution & Logistics Clog on Tumkur Road",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Prioritize Ambulance Routes", "details": "Keep service lanes clear for medical vehicles by enforcing no-parking and staged removal of distribution vans." },
+          { "action": "Stagger Distribution", "details": "Coordinate mask and aid distribution schedules to avoid crowding that blocks service lanes." },
+          { "action": "Deploy Traffic Marshals", "details": "Marshals to manage queues and maintain flow for emergency services." },
+          { "action": "Coordinate with BMTC", "details": "Redirect bus routes away from heavily clogged service lanes to maintain network reliability." },
+          { "action": "Incident Logging", "details": "Record delays and impediments for post-incident analysis and resource optimization." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_003_mask_distribution_clog",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T04:50:00.000Z",
+        "location": {
+          "zone": "Tumkur Rd (NH48) Service Lanes",
+          "coordinates": { "lat": 13.0190, "lon": 77.5235 },
+          "granularity": "corridor"
+        },
+        "metadata": { "confidence": 0.91, "data_source": "BTP_TMC" }
+      }
+    }
+  ]
+  

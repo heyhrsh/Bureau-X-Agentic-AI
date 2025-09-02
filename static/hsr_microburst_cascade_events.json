@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Microburst Warning in HSR Layout",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Issue Short-term Weather Alert", "details": "Warn residents and schools about intense brief rainfall and the risk of flash flooding." },
+          { "action": "Protect Outdoor Assets", "details": "Advise businesses to secure outdoor equipment and pause high-risk activities." },
+          { "action": "Mobilize Drainage Teams", "details": "BBMP to position pumps and clearing crews at known local low points." },
+          { "action": "Suspend Vulnerable Transit", "details": "Temporarily suspend certain surface services in low-lying micro-catchments if needed." },
+          { "action": "Monitor Telemetry", "details": "Keep IMD and TMC tracking radar returns for rapid escalation triggers." }
+        ]
+      },
+      "source_event": {
+        "eventId": "weat_001_microburst",
+        "dataType": "weather",
+        "timestamp": "2025-08-31T13:30:00.000Z",
+        "location": {
+          "zone": "HSR Layout",
+          "coordinates": { "lat": 12.9121, "lon": 77.6412 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "IMD_RADAR" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Sewage Backflow & Contamination Risk (HSR 27th Main)",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Issue Boil-Water Advisory", "details": "BWSSB to advise residents to boil water until turbidity and contamination tests clear." },
+          { "action": "Protect Schools & Shops", "details": "Temporarily close or restrict access to ground-floor shops and schools near backflow zones." },
+          { "action": "Deploy Sanitation Teams", "details": "Provide emergency cleansing and disinfection of contaminated public spaces." },
+          { "action": "Provide Safe Water Supply", "details": "Arrange tanker distribution to vulnerable households until mains are cleared." },
+          { "action": "Coordinate Health Surveillance", "details": "Alert local clinics to watch for waterborne illness reports and set up reporting channels." }
+        ]
+      },
+      "source_event": {
+        "eventId": "wate_002_drain_backflow",
+        "dataType": "water_quality",
+        "timestamp": "2025-08-31T13:38:00.000Z",
+        "location": {
+          "zone": "HSR 27th Main",
+          "coordinates": { "lat": 12.9105, "lon": 77.6400 },
+          "granularity": "intersection"
+        },
+        "metadata": { "confidence": 0.92, "data_source": "BWSSB_FIELD" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Transformer Submergence & Shutdown (HSR Sector 2)",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Emergency Shutdown", "details": "BESCOM to maintain shutdown of submerged transformer to prevent electrical hazards." },
+          { "action": "Provide Alternative Power for Critical Loads", "details": "Ensure hospitals and water pumps receive temporary power via generators." },
+          { "action": "Begin Recovery Operations", "details": "Plan for dewatering and safe inspection before re-energizing the distribution network." },
+          { "action": "Notify Affected Consumers", "details": "Publicly notify the ~1800 consumers about outage scope and restoration estimates." },
+          { "action": "Root Cause Assessment", "details": "Investigate drainage failures and transformer siting to inform future infrastructure resilience." }
+        ]
+      },
+      "source_event": {
+        "eventId": "powe_003_transformer_submerge",
+        "dataType": "power_outage",
+        "timestamp": "2025-08-31T13:45:00.000Z",
+        "location": {
+          "zone": "HSR Sector 2",
+          "coordinates": { "lat": 12.9142, "lon": 77.6460 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.95, "data_source": "BESCOM_GRID" }
+      }
+    }
+  ]
+  

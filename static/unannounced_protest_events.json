@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Unpermitted Crowd Gathering at KR Market",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Assess Intent & Size", "details": "Use OSINT and on-ground police reports to confirm organizers, motives and true crowd size." },
+          { "action": "Engage Organizers", "details": "Attempt to negotiate with crowd leaders to agree on route and minimize disruption." },
+          { "action": "Public Safety Messaging", "details": "Advise public on planned march route and recommend avoidance of KR Market area." },
+          { "action": "Preposition Police & Medical", "details": "Deploy teams along likely route to manage order and respond to medical needs." },
+          { "action": "Prepare Containment Plans", "details": "Ready barriers and diversion routes to protect sensitive infrastructure en-route to Vidhana Soudha." }
+        ]
+      },
+      "source_event": {
+        "eventId": "publ_001_gathering_detected",
+        "dataType": "public_event",
+        "timestamp": "2025-08-31T03:10:00.000Z",
+        "location": {
+          "zone": "KR Market",
+          "coordinates": { "lat": 12.9636, "lon": 77.5733 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.89, "data_source": "SOCIAL_MEDIA_OSINT" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "March Occupies Sirsi Circle Flyover Approaches",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Reroute Buses", "details": "BMTC to implement pre-planned diversions and avoid Sirsi Circle to maintain network reliability." },
+          { "action": "Open Alternate Corridors", "details": "Signal and traffic changes to direct flow to parallel streets to reduce congestion." },
+          { "action": "Protect Vulnerable Areas", "details": "Secure hospitals and emergency access routes near the march path." },
+          { "action": "Crowd Density Monitoring", "details": "Use CCTV and aerial assets to monitor crowd pockets and identify risky compression zones." },
+          { "action": "Maintain Communications", "details": "Keep an open line with protest leaders to manage pace and prevent sudden surges." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_002_bridge_block",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T03:25:00.000Z",
+        "location": {
+          "zone": "Sirsi Circle Flyover",
+          "coordinates": { "lat": 12.9639, "lon": 77.5652 },
+          "granularity": "intersection"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "BTP_TMC" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Scuffles at Vidhana Soudha Barricades",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Contain & De-escalate", "details": "Police to use minimum force and negotiation teams to de-escalate scuffles and avoid crowd panic." },
+          { "action": "Medical & Legal Response", "details": "Provide immediate medical attention and ensure legal processing for arrests with documentation." },
+          { "action": "Secure Government Premises", "details": "Reinforce protective measures around Vidhana Soudha and restrict unauthorized access." },
+          { "action": "Public Information", "details": "Provide factual updates to prevent rumor spread and advise public to avoid the area." },
+          { "action": "Post-Event Review", "details": "Assess permit processes and rapid-response protocols to improve handling of future unannounced gatherings." }
+        ]
+      },
+      "source_event": {
+        "eventId": "crim_003_scuffle_police",
+        "dataType": "crime_report",
+        "timestamp": "2025-08-31T03:40:00.000Z",
+        "location": {
+          "zone": "Vidhana Soudha",
+          "coordinates": { "lat": 12.9797, "lon": 77.5907 },
+          "granularity": "facility"
+        },
+        "metadata": { "confidence": 0.92, "data_source": "POLICE_112" }
+      }
+    }
+  ]
+  

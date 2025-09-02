@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Smoke Alarm Trigger on 18th Floor (UB City Vicinity)",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Immediate Evacuation", "details": "Initiate floor-by-floor evacuation using trained wardens and follow fire evacuation plan." },
+          { "action": "Alert Fire Services", "details": "Confirm alarm with fire control and request immediate dispatch of tenders and ladder units." },
+          { "action": "Medical Standby", "details": "Prepare ambulances at nearest safe perimeter for potential casualties." },
+          { "action": "Crowd Control", "details": "Manage evacuees in secure holding zones to prevent re-entry and ensure accountability." },
+          { "action": "Activate Building Command", "details": "Building management to provide floor plans, hazardous material locations, and access to fire teams." }
+        ]
+      },
+      "source_event": {
+        "eventId": "fire_001_alarm_trigger",
+        "dataType": "fire_emergency",
+        "timestamp": "2025-08-31T07:40:00.000Z",
+        "location": {
+          "zone": "UB City Vicinity",
+          "coordinates": { "lat": 12.9716, "lon": 77.5970 },
+          "granularity": "building"
+        },
+        "metadata": { "confidence": 0.95, "data_source": "BUILDING_FACP" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "CBD Cordon & Diversions (Vittal Mallya Rd)",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Establish Cordon", "details": "Police to set up safety perimeter to allow emergency vehicle access and protect public." },
+          { "action": "Implement Diversions", "details": "Route traffic via Kasturba Rd and other parallel links to alleviate CBD congestion." },
+          { "action": "Keep Routes Clear for Tenders", "details": "Enforce no-parking and remove obstructions on approach roads used by fire services." },
+          { "action": "Provide Public Info", "details": "Broadcast road closures and advise commuters to avoid the area." },
+          { "action": "Coordinate with Building Ops", "details": "Ensure fire crews have unobstructed access to hydrants and critical building infrastructure." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_002_cordon",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T07:46:00.000Z",
+        "location": {
+          "zone": "Vittal Mallya Rd",
+          "coordinates": { "lat": 12.9718, "lon": 77.5990 },
+          "granularity": "intersection"
+        },
+        "metadata": { "confidence": 0.93, "data_source": "BTP_TMC" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Power Isolation & Backup Activation (UB City Block)",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Isolate Building Power", "details": "Fire command to coordinate with electrical team to cut supply and prevent electrical hazards." },
+          { "action": "Engage Backup Systems", "details": "Start backup generators for critical systems like emergency lighting and fire pumps where safe." },
+          { "action": "Suspend Elevator Use", "details": "Prohibit elevators until fire teams clear and declare them safe." },
+          { "action": "Inspect Electrical Systems", "details": "Post-incident electrical inspection before re-energising the building." },
+          { "action": "Support Business Continuity", "details": "Advise tenant companies on data protection and access to essential services while isolation persists." }
+        ]
+      },
+      "source_event": {
+        "eventId": "powe_003_supply_isolation",
+        "dataType": "power_outage",
+        "timestamp": "2025-08-31T07:52:00.000Z",
+        "location": {
+          "zone": "UB City Block",
+          "coordinates": { "lat": 12.9716, "lon": 77.5970 },
+          "granularity": "building"
+        },
+        "metadata": { "confidence": 0.97, "data_source": "FIRE_COMMAND" }
+      }
+    }
+  ]
+  

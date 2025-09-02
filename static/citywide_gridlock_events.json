@@ -1,0 +1,137 @@
+[
+    {
+        "plan": {
+            "plan_title": "Traffic Signal Failure at Silk Board Junction",
+            "priority": "MEDIUM",
+            "steps": [
+                {
+                    "action": "Activate Manual Traffic Control",
+                    "details": "Dispatch traffic wardens to Silk Board and feeder junctions to manually direct flow and prioritize emergency lanes."
+                },
+                {
+                    "action": "Notify BESCOM & Repair Teams",
+                    "details": "Alert BESCOM field crew for power cabinet inspection and UPS replacement to restore signal controllers."
+                },
+                {
+                    "action": "Open Emergency Corridors",
+                    "details": "Coordinate with BTP to clear designated emergency corridors and remove stalled vehicles blocking lanes."
+                },
+                {
+                    "action": "Issue Public Advisory",
+                    "details": "Push real-time reroute suggestions via traffic apps, radio, and social media; advise drivers to avoid Silk Board."
+                },
+                {
+                    "action": "Monitor & Escalate",
+                    "details": "Continue CCTV and TMC monitoring; escalate to city ops if spillback extends to adjacent neighborhoods."
+                }
+            ]
+        },
+        "source_event": {
+            "eventId": "traf_001_signal_drop",
+            "dataType": "traffic",
+            "timestamp": "2025-08-31T11:40:00.000Z",
+            "location": {
+                "zone": "Silk Board Junction",
+                "coordinates": {
+                    "lat": 12.9177,
+                    "lon": 77.6233
+                },
+                "granularity": "intersection"
+            },
+            "metadata": {
+                "confidence": 0.93,
+                "data_source": "BTP_TMC"
+            }
+        }
+    },
+    {
+        "plan": {
+            "plan_title": "Power Cabinet Trip at Bommanahalli",
+            "priority": "HIGH",
+            "steps": [
+                {
+                    "action": "Isolate Faulty Cabinet",
+                    "details": "BESCOM to isolate the tripped cabinet and run diagnostics to identify cause (short/overload/UPS failure)."
+                },
+                {
+                    "action": "Deploy Mobile UPS Units",
+                    "details": "Provide temporary mobile UPS or generator support to restore critical signal controllers immediately."
+                },
+                {
+                    "action": "Traffic Redistribution",
+                    "details": "Implement temporary signal patterns and manual control at adjacent junctions to reduce bottleneck formation."
+                },
+                {
+                    "action": "Public Communication",
+                    "details": "Inform commuters about expected restoration window and recommended alternatives to Hosur Rd and ORR."
+                },
+                {
+                    "action": "Log & Repair",
+                    "details": "Create incident ticket for expedited repair and schedule preventive maintenance to avoid repeat."
+                }
+            ]
+        },
+        "source_event": {
+            "eventId": "powe_002_cabinet_trip",
+            "dataType": "power_outage",
+            "timestamp": "2025-08-31T11:44:00.000Z",
+            "location": {
+                "zone": "Bommanahalli Traffic Cabinet",
+                "coordinates": {
+                    "lat": 12.9059,
+                    "lon": 77.6100
+                },
+                "granularity": "neighborhood"
+            },
+            "metadata": {
+                "confidence": 0.96,
+                "data_source": "BESCOM_GRID"
+            }
+        }
+    },
+    {
+        "plan": {
+            "plan_title": "Citywide Spillback & Gridlock (South-East Corridors)",
+            "priority": "CRITICAL",
+            "steps": [
+                {
+                    "action": "Declare Traffic Emergency",
+                    "details": "Activate city traffic emergency protocol; convene operations cell to coordinate agencies (BTP, BMTC, BESCOM, OC) immediately."
+                },
+                {
+                    "action": "Prioritize Emergency Vehicles",
+                    "details": "Clear and hold open corridors for ambulances and fire tenders; preemptively suspend parking on critical approaches."
+                },
+                {
+                    "action": "Dynamic Re-routing",
+                    "details": "Push targeted reroutes to navigation providers and BMTC drivers; enact contraflow if safe and necessary."
+                },
+                {
+                    "action": "Rapid Incident Clearance",
+                    "details": "Deploy tow trucks and quick-clear teams to remove stalled vehicles and open lanes."
+                },
+                {
+                    "action": "Post-Event Review",
+                    "details": "Capture telemetry and CCTV evidence to identify systemic failures and update contingency plans."
+                }
+            ]
+        },
+        "source_event": {
+            "eventId": "traf_003_citywide_spillback",
+            "dataType": "traffic",
+            "timestamp": "2025-08-31T11:55:00.000Z",
+            "location": {
+                "zone": "Citywide South-East Corridors",
+                "coordinates": {
+                    "lat": 12.9500,
+                    "lon": 77.6300
+                },
+                "granularity": "city-wide"
+            },
+            "metadata": {
+                "confidence": 0.97,
+                "data_source": "CCTV_ANALYTICS"
+            }
+        }
+    }
+]

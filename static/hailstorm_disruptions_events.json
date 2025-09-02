@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Hailstorm Approaching Hebbal Flyover",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Issue Local Weather Warning", "details": "Alert motorists and residents about hail and strong gusts; recommend sheltering in place." },
+          { "action": "Reduce Speed Advisories", "details": "Advise reduced speeds on flyovers and open stretches to prevent loss-of-control incidents." },
+          { "action": "Park Vehicles Safely", "details": "Encourage drivers to move under cover where possible and avoid stopping on flyovers." },
+          { "action": "Prepare Roadside Assistance", "details": "Ready towing and first-aid teams for expected increase in minor accidents." },
+          { "action": "Monitor Tree Hazards", "details": "Forestry/BBMP crews to monitor vulnerable trees for falling branches triggered by hail winds." }
+        ]
+      },
+      "source_event": {
+        "eventId": "weat_001_hail_alert",
+        "dataType": "weather",
+        "timestamp": "2025-08-31T09:50:00.000Z",
+        "location": {
+          "zone": "Hebbal",
+          "coordinates": { "lat": 13.0358, "lon": 77.5970 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "IMD_RADAR" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Vehicle Damage & Pile-ups on Hebbal Flyover",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Secure Accident Scenes", "details": "Police to cordon off areas of pile-up and route traffic around the incident." },
+          { "action": "Medical Response", "details": "Ambulances to prioritise injured; establish triage at safe nearby locations." },
+          { "action": "Clear Debris & Vehicles", "details": "Tow trucks to remove damaged vehicles and clear ramps to restore flow." },
+          { "action": "Temporary Speed & Light Control", "details": "Set up temporary warning lights and signs to alert following traffic of hazards." },
+          { "action": "Insurance & Reporting Support", "details": "Provide information kiosks for quick reporting and support for affected motorists." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_002_windscreen_damage",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T09:56:00.000Z",
+        "location": {
+          "zone": "Hebbal Flyover",
+          "coordinates": { "lat": 13.0369, "lon": 77.5897 },
+          "granularity": "intersection"
+        },
+        "metadata": { "confidence": 0.92, "data_source": "CCTV_ANALYTICS" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Overhead Line Faults & Rolling Outages",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Isolate Faulted Sections", "details": "BESCOM to isolate affected overhead lines to prevent further failures and ensure crew safety." },
+          { "action": "Prioritize Critical Loads", "details": "Maintain power to hospitals and emergency services by controlled load-shedding of non-critical areas." },
+          { "action": "Deploy Line Crews", "details": "Send line maintenance teams to repair fallen lines and restore stable supply." },
+          { "action": "Public Communication on Outages", "details": "Inform residents and businesses about outage extent, safety precautions, and restoration timeline." },
+          { "action": "Tree & Vegetation Clearance", "details": "Coordinate with BBMP for rapid removal of fallen trees causing line damage." }
+        ]
+      },
+      "source_event": {
+        "eventId": "powe_003_line_faults",
+        "dataType": "power_outage",
+        "timestamp": "2025-08-31T10:05:00.000Z",
+        "location": {
+          "zone": "North Bengaluru",
+          "coordinates": { "lat": 13.0200, "lon": 77.6000 },
+          "granularity": "district"
+        },
+        "metadata": { "confidence": 0.94, "data_source": "BESCOM_GRID" }
+      }
+    }
+  ]
+  

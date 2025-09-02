@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Unplanned Procession Surge in Basavanagudi",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Validate Crowd Size", "details": "Event permits team to confirm actual turnout vs planned capacity and identify unplanned sub-processions." },
+          { "action": "Engage Religious Leaders", "details": "Coordinate with procession organizers to control pace and routing to avoid bottlenecks." },
+          { "action": "Public Transport Adjustments", "details": "BMTC to increase frequency on alternate corridors to reduce private vehicle influx." },
+          { "action": "Prepare Emergency Medical Posts", "details": "Position first-aid stations near high-density nodes to respond quickly to incidents." },
+          { "action": "Deploy Crowd Marshals", "details": "Place trained marshals along the route to manage pedestrian flows and prevent spill onto roads." }
+        ]
+      },
+      "source_event": {
+        "eventId": "publ_001_procession_start",
+        "dataType": "public_event",
+        "timestamp": "2025-08-31T16:00:00.000Z",
+        "location": {
+          "zone": "Basavanagudi",
+          "coordinates": { "lat": 12.9407, "lon": 77.5713 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "EVENT_PERMIT_DB" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Crowd-Vehicle Bottleneck at Bugle Rock–KR Rd",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Pedestrianize Bottleneck", "details": "Temporarily close the most congested arterial to vehicular traffic and allow pedestrian flow only." },
+          { "action": "Route Ambulances", "details": "Create dedicated access corridors for emergency vehicles and inform medical teams." },
+          { "action": "Stagger Procession Timing", "details": "Work with organizers to stagger procession segments to reduce simultaneous density peaks." },
+          { "action": "Use PA Systems", "details": "Broadcast crowd management instructions and safety messages to maintain calm." },
+          { "action": "Monitor for Heat/Crush Risks", "details": "Continuously assess crowd density and open additional dispersal points if needed." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_002_bottleneck",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T16:12:00.000Z",
+        "location": {
+          "zone": "Bugle Rock–KR Rd",
+          "coordinates": { "lat": 12.9427, "lon": 77.5682 },
+          "granularity": "intersection"
+        },
+        "metadata": { "confidence": 0.91, "data_source": "CCTV_ANALYTICS" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Short AQI Spike from Fireworks & Incense",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Issue Health Advisory", "details": "Advise elderly and sensitive individuals to avoid exposed zones for the next few hours." },
+          { "action": "Limit Pyrotechnics", "details": "Ask organizers to minimize fireworks near dense crowds and critical infrastructure." },
+          { "action": "Temporary Monitoring Increase", "details": "Increase AQI sampling frequency to track spike decay and inform public." },
+          { "action": "Provide Masks at First-Aid Posts", "details": "Distribute disposable masks to nearby vulnerable attendees." },
+          { "action": "Post-Festival Cleanup", "details": "Coordinate cleaning to remove burnt residues that may prolong local air quality issues." }
+        ]
+      },
+      "source_event": {
+        "eventId": "aqi_003_fireworks_smoke",
+        "dataType": "air_quality_index",
+        "timestamp": "2025-08-31T16:25:00.000Z",
+        "location": {
+          "zone": "Basavanagudi–Gandhi Bazaar",
+          "coordinates": { "lat": 12.9443, "lon": 77.5671 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.88, "data_source": "AQI_SENSOR_NETWORK" }
+      }
+    }
+  ]
+  

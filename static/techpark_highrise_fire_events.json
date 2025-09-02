@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Server Room Smoke Alarm (Manyata Tech Park)",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Immediate Local Evacuation", "details": "Evacuate affected floors and adjacent offices; account for all occupants." },
+          { "action": "Isolate Server Room", "details": "Shut down non-critical electrical feeds and isolate the server room to prevent fire spread." },
+          { "action": "Activate Fire Suppression", "details": "If safe, fire suppression systems to operate; otherwise wait for fire crew direction." },
+          { "action": "Prepare Emergency Access", "details": "Clear entry routes for fire tenders and ensure hydrant availability." },
+          { "action": "Restore Critical Systems", "details": "Plan for staged re-energisation of critical systems post-clearance to protect data assets." }
+        ]
+      },
+      "source_event": {
+        "eventId": "fire_001_smoke_alarms",
+        "dataType": "fire_emergency",
+        "timestamp": "2025-08-31T11:00:00.000Z",
+        "location": {
+          "zone": "Manyata Tech Park",
+          "coordinates": { "lat": 13.0526, "lon": 77.6206 },
+          "granularity": "building"
+        },
+        "metadata": { "confidence": 0.94, "data_source": "BUILDING_FACP" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Emergency Lane & Exit Congestion (Thanisandra Rd)",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Manage Park Exit Flow", "details": "Stagger exits and create holding areas to reduce spillback onto Thanisandra arterial." },
+          { "action": "Coordinate with Campus Security", "details": "Use campus channels to guide employees to safe pickup points away from the emergency lane." },
+          { "action": "Open Additional Egress", "details": "Use secondary exits and service roads to disperse departing occupants." },
+          { "action": "Provide Shuttle Services", "details": "Arrange temporary shuttles to nearby transit nodes for stranded employees." },
+          { "action": "Monitor Traffic Impact", "details": "Assess outer arterial spillback and coordinate with city TMC for remedial routing." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_002_emergency_lane",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T11:06:00.000Z",
+        "location": {
+          "zone": "Thanisandra Main Rd",
+          "coordinates": { "lat": 13.0490, "lon": 77.6240 },
+          "granularity": "corridor"
+        },
+        "metadata": { "confidence": 0.92, "data_source": "CCTV_ANALYTICS" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Floor-wise Power Isolation Executed (Tower 4)",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Confirm Isolation Status", "details": "Building ops to verify which floors are isolated and ensure critical systems have generator power." },
+          { "action": "Monitor Smoke Migration", "details": "Assess HVAC shutdown impact and ensure smoke is not spreading to occupied floors." },
+          { "action": "Facilitate Safe Re-entry", "details": "Only allow re-entry after fire command clearance and electrical safety checks." },
+          { "action": "Support Business Continuity", "details": "Provide guidance to tenants for remote work and data protection while systems are offline." },
+          { "action": "Conduct Post-incident Forensics", "details": "Investigate cause (e.g., server overheating) and recommend improvements to fire prevention systems." }
+        ]
+      },
+      "source_event": {
+        "eventId": "powe_003_floor_isolation",
+        "dataType": "power_outage",
+        "timestamp": "2025-08-31T11:12:00.000Z",
+        "location": {
+          "zone": "Manyata Tower 4",
+          "coordinates": { "lat": 13.0526, "lon": 77.6206 },
+          "granularity": "building"
+        },
+        "metadata": { "confidence": 0.96, "data_source": "FIRE_COMMAND" }
+      }
+    }
+  ]
+  

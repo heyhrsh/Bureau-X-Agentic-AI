@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Track Circuit Fault at Yelachenahalli",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Hold Trains & Inspect Circuit", "details": "Secure affected track section and run diagnostic tests to locate and repair the circuit fault." },
+          { "action": "Inform Passengers", "details": "Provide updates on platform displays and announcements about delays and alternate options." },
+          { "action": "Prepare Manual Routing", "details": "Implement manual control protocols for limited service while repairs proceed." },
+          { "action": "Deploy Field Engineers", "details": "Send track and signalling engineers with replacement modules and test kits." },
+          { "action": "Coordinate with Surface Transport", "details": "Arrange BMTC supplemental services for affected commutes." }
+        ]
+      },
+      "source_event": {
+        "eventId": "metr_001_track_circuit",
+        "dataType": "public_transit_metro",
+        "timestamp": "2025-08-31T01:58:00.000Z",
+        "location": {
+          "zone": "Yelachenahalli",
+          "coordinates": { "lat": 12.8967, "lon": 77.5798 },
+          "granularity": "station"
+        },
+        "metadata": { "confidence": 0.91, "data_source": "BMRCL_SCADA" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Skip-Stop Operations to Recover Schedule",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Announce Skip-Stop Pattern", "details": "Inform passengers of temporary skip-stop pattern and provide signage for alternate boarding." },
+          { "action": "Deploy Crowd Control", "details": "Place staff at Majestic and Chickpete to manage increased boarding demand." },
+          { "action": "Monitor Platform Loads", "details": "Continuously monitor crowding and open additional entry points as needed." },
+          { "action": "Coordinate with Traffic Ops", "details": "Adjust surface transport to help move passengers away from congested metro nodes." },
+          { "action": "Reassess Every 15 Minutes", "details": "Operations to re-evaluate headways and consider restoring normal stops when safe." }
+        ]
+      },
+      "source_event": {
+        "eventId": "metr_002_skip_stop_ops",
+        "dataType": "public_transit_metro",
+        "timestamp": "2025-08-31T02:05:00.000Z",
+        "location": {
+          "zone": "Green Line Core",
+          "coordinates": { "lat": 12.9710, "lon": 77.5940 },
+          "granularity": "corridor"
+        },
+        "metadata": { "confidence": 0.93, "data_source": "CCTV_ANALYTICS" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Feeder Spillover to Surface (KR Market–Majestic)",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Increase BMTC Capacity", "details": "Introduce additional buses and temporary shuttle routes to handle overflow passengers." },
+          { "action": "Enforce Bus Lane Priority", "details": "Clear bus lanes from auto/taxi queuing to maintain scheduled movements." },
+          { "action": "Manage Taxi/Auto Queues", "details": "Organize staged pick-up points to prevent lane blocking and improve throughput." },
+          { "action": "Real-time Multimodal Updates", "details": "Push coordinated updates across metro, bus and ride-hailing apps to distribute passenger loads." },
+          { "action": "After-action Capacity Review", "details": "Collect data on mode-shifts to improve future contingency planning." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_003_feeder_spillover",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T02:12:00.000Z",
+        "location": {
+          "zone": "KR Market–Majestic Surface",
+          "coordinates": { "lat": 12.9742, "lon": 77.5736 },
+          "granularity": "district"
+        },
+        "metadata": { "confidence": 0.92, "data_source": "BMTC_AVL" }
+      }
+    }
+  ]
+  

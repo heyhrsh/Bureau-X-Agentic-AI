@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Cloudburst Warning over Bellandur",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Issue Weather Alert", "details": "Push cloudburst advisory to residents and commuters in Bellandur–Ecospace corridor." },
+          { "action": "Preposition Drainage Crews", "details": "BBMP to stage pumps and clearing teams at known choke points before peak rainfall." },
+          { "action": "Suspend Vulnerable Operations", "details": "Advise closure of low-lying markets and outdoor works until risk subsides." },
+          { "action": "Public Transport Readiness", "details": "BMTC and BMRCL to prepare contingency shuttles and reroutes for stranded commuters." },
+          { "action": "Activate Monitoring", "details": "IMD and TMC to monitor radar and update alerts as the storm evolves." }
+        ]
+      },
+      "source_event": {
+        "eventId": "weat_001_cloudburst",
+        "dataType": "weather",
+        "timestamp": "2025-08-31T13:05:00.000Z",
+        "location": {
+          "zone": "Bellandur",
+          "coordinates": { "lat": 12.9340, "lon": 77.6762 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.95, "data_source": "IMD_RADAR" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Severe Waterlogging on Outer Ring Road (Ecospace)",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Close Flooded Sections", "details": "Block access to submerged service roads and reroute traffic to higher-capacity links." },
+          { "action": "Deploy Pumps & Clear Drains", "details": "Activate BBMP pump teams and clear storm drains to reduce standing water." },
+          { "action": "Rescue & Assist Stranded Motorists", "details": "Dispatch tow teams and ambulances for vulnerable people and disabled vehicles." },
+          { "action": "Sanitation Alert", "details": "BWSSB to address sewage mixing and issue public health guidance on contamination." },
+          { "action": "Provide Real-time Info", "details": "Use traffic feeds and social channels to warn against travel and provide safe detour routes." }
+        ]
+      },
+      "source_event": {
+        "eventId": "wate_002_waterlogging",
+        "dataType": "water_quality",
+        "timestamp": "2025-08-31T13:12:00.000Z",
+        "location": {
+          "zone": "Outer Ring Rd (Ecospace)",
+          "coordinates": { "lat": 12.9308, "lon": 77.6783 },
+          "granularity": "intersection"
+        },
+        "metadata": { "confidence": 0.93, "data_source": "CCTV_ANALYTICS" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "ORR Gridlock from Stalled Vehicles",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Emergency Vehicle Corridors", "details": "Enforce dedicated lanes for ambulances and fire services; temporarily suspend on-street parking." },
+          { "action": "Rapid Clearance", "details": "Deploy tow and recovery units in coordinated strikes to remove stalled vehicles quickly." },
+          { "action": "Traffic Rerouting & Signal Prioritization", "details": "TMC to reconfigure signal timings and push reroutes to navigation providers." },
+          { "action": "Public Safety Messaging", "details": "Warn residents not to attempt crossings; advise on nearest open shelters and assistance points." },
+          { "action": "Inter-agency Coordination", "details": "City Ops to coordinate BESCOM, BBMP, BWSSB and BTP for combined response and resource allocation." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_003_orr_gridlock",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T13:20:00.000Z",
+        "location": {
+          "zone": "ORR Bellandur–Marathahalli",
+          "coordinates": { "lat": 12.9550, "lon": 77.7010 },
+          "granularity": "corridor"
+        },
+        "metadata": { "confidence": 0.97, "data_source": "BTP_TMC" }
+      }
+    }
+  ]
+  

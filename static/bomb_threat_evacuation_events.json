@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Bomb Threat Call at Orion Mall",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Confirm Threat Credibility", "details": "Police intelligence to validate call, check CCTV, and cross-reference with any other alerts." },
+          { "action": "Notify Bomb Squad", "details": "Dispatch EOD unit to conduct systematic sweep and render-safe procedures." },
+          { "action": "Begin Controlled Evacuation", "details": "Initiate stepwise evacuation from food court outward to minimize panic and maintain order." },
+          { "action": "Establish Holding Areas", "details": "Move evacuees to pre-designated safe zones and account for vulnerable persons." },
+          { "action": "Communicate with Public", "details": "Provide clear instructions to avoid rumors and manage ingress to nearby areas." }
+        ]
+      },
+      "source_event": {
+        "eventId": "crim_001_threat_call",
+        "dataType": "crime_report",
+        "timestamp": "2025-08-31T14:05:00.000Z",
+        "location": {
+          "zone": "Orion Mall",
+          "coordinates": { "lat": 13.0110, "lon": 77.5552 },
+          "granularity": "facility"
+        },
+        "metadata": { "confidence": 0.86, "data_source": "POLICE_112" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Evacuation Order & Controlled Dispersal",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Coordinate Metro & Mall Evacuation", "details": "Simultaneously evacuate mall and adjacent Rajajinagar metro station to reduce secondary hazards." },
+          { "action": "Hold Area Traffic", "details": "Block adjacent roads to create secure perimeters and guide evacuees to safe dispersal zones." },
+          { "action": "Support Vulnerable Groups", "details": "Assign teams to assist elderly, children, and disabled in evacuations." },
+          { "action": "Record & Preserve Evidence", "details": "Secure CCTV and access logs for investigation and maintain chain-of-custody for evidence." },
+          { "action": "Update Public in Real-time", "details": "Provide authoritative updates once sweep concludes to prevent misinformation." }
+        ]
+      },
+      "source_event": {
+        "eventId": "publ_002_evacuation_order",
+        "dataType": "public_event",
+        "timestamp": "2025-08-31T14:10:00.000Z",
+        "location": {
+          "zone": "Orion Mall & Rajajinagar Metro",
+          "coordinates": { "lat": 13.0063, "lon": 77.5533 },
+          "granularity": "facility"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "CIVIL_DEFENCE" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Service Suspension on Green Line (Rajajinagar Segment)",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Bypass Closed Station", "details": "Operate trains to bypass Rajajinagar until clearance; update timetables and passenger notices." },
+          { "action": "Provide Surface Transit Alternatives", "details": "Arrange shuttle buses between adjacent stations and inform passengers of boarding points." },
+          { "action": "Coordinate Security Sweeps", "details": "Ensure metro staff assist EOD teams with station access and CCTV footage retrieval." },
+          { "action": "Manage Passenger Queues", "details": "Deploy staff to manage queueing at alternate stations and prevent overcrowding." },
+          { "action": "Post-Incident Recovery", "details": "Inspect station systems before reopening and run gradual resumption of services." }
+        ]
+      },
+      "source_event": {
+        "eventId": "metr_003_service_suspension",
+        "dataType": "public_transit_metro",
+        "timestamp": "2025-08-31T14:12:00.000Z",
+        "location": {
+          "zone": "Green Line (Rajajinagar Segment)",
+          "coordinates": { "lat": 12.9983, "lon": 77.5530 },
+          "granularity": "corridor"
+        },
+        "metadata": { "confidence": 0.88, "data_source": "BMRCL_OC" }
+      }
+    }
+  ]
+  

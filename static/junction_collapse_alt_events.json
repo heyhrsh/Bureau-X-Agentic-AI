@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Controller Overheat at Marathahalli Junction",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Switch to Manual Phasing", "details": "Deploy field engineers to operate signals in manual mode and stabilize phasing until repairs." },
+          { "action": "Cool & Inspect Controller", "details": "Technicians to cool the controller housing, inspect for faults and replace heat-damaged components." },
+          { "action": "Public Advisories", "details": "Notify commuters of expected delays and recommend alternate routes during repair window." },
+          { "action": "Stagger Bus Departures", "details": "Coordinate BMTC to adjust departure times to reduce peak pressure at the junction." },
+          { "action": "Schedule Preventive Maintenance", "details": "Log the incident and plan enhanced thermal monitoring for hot-spot controllers." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_001_controller_overheat",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T12:05:00.000Z",
+        "location": {
+          "zone": "Marathahalli Junction",
+          "coordinates": { "lat": 12.9592, "lon": 77.6984 },
+          "granularity": "intersection"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "CCTV_ANALYTICS" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "UPS Failure Across Marathahalli–Kadubeesanahalli",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Provide Temporary Power", "details": "Deliver mobile UPS or standby generators to maintain critical signal and safety systems." },
+          { "action": "Inspect UPS Systems", "details": "Technicians to test UPS health, battery status and replace depleted units." },
+          { "action": "Manual Pedestrian Control", "details": "Deploy crossing guards to manage pedestrian movements with dark pedestrian signals." },
+          { "action": "Prioritize High-risk Intersections", "details": "Assign additional staff at intersections with known high accident rates for added safety." },
+          { "action": "Communicate Restoration Plan", "details": "Publish expected restoration actions and timelines to stakeholders." }
+        ]
+      },
+      "source_event": {
+        "eventId": "powe_002_ups_failure",
+        "dataType": "power_outage",
+        "timestamp": "2025-08-31T12:12:00.000Z",
+        "location": {
+          "zone": "Marathahalli–Kadubeesanahalli",
+          "coordinates": { "lat": 12.9490, "lon": 77.6900 },
+          "granularity": "corridor"
+        },
+        "metadata": { "confidence": 0.92, "data_source": "BESCOM_GRID" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Systemic Gridlock on ORR East",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Declare Major Traffic Incident", "details": "Trigger city-level incident management to marshal cross-agency resources for prolonged disruption." },
+          { "action": "Implement Contraflow Where Safe", "details": "Open contraflow lanes to bypass congested sections and relieve queue backpressure." },
+          { "action": "Prioritize Freight Clearance", "details": "Move heavy freight vehicles out of mix zones to improve arterial capacity." },
+          { "action": "Provide Real-time Alternative Routing", "details": "Push high-quality alternate routes to navigation partners and public portals." },
+          { "action": "Post-Event Systems Audit", "details": "Analyse root causes and hardware vulnerabilities to harden intersections against future systemic collapse." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_003_systemic_gridlock",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T12:22:00.000Z",
+        "location": {
+          "zone": "ORR East",
+          "coordinates": { "lat": 12.9550, "lon": 77.7010 },
+          "granularity": "district"
+        },
+        "metadata": { "confidence": 0.95, "data_source": "BTP_TMC" }
+      }
+    }
+  ]
+  

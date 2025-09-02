@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Suspected Fiber Duct Cut at Kadubeesanahalli",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Confirm Affected Links", "details": "ISPs to map out impacted backbone routes and affected customer segments for targeted restoration." },
+          { "action": "Dispatch Splice Crews", "details": "Send civil and fiber teams with joint inspection to locate cut and prepare for splicing." },
+          { "action": "Inform Businesses", "details": "Notify impacted enterprises and data centers of incident and provide interim connectivity options." },
+          { "action": "Fallback Routing", "details": "Implement temporary traffic reroutes on redundant links where possible to restore critical services." },
+          { "action": "Coordinate with Road Works", "details": "Check nearby construction permits to identify possible cause and coordinate safety measures." }
+        ]
+      },
+      "source_event": {
+        "eventId": "crim_001_fiber_cut_report",
+        "dataType": "crime_report",
+        "timestamp": "2025-08-31T05:15:00.000Z",
+        "location": {
+          "zone": "Kadubeesanahalli",
+          "coordinates": { "lat": 12.9396, "lon": 77.6876 },
+          "granularity": "intersection"
+        },
+        "metadata": { "confidence": 0.88, "data_source": "ISP_NOC" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Signal Desync on ORR Due to Comms Loss",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Switch to Local Signal Mode", "details": "TMC to set local fallback cycles where smart-signal coordination is lost to maintain minimal throughput." },
+          { "action": "Manual Signal Overrides", "details": "Deploy traffic engineers to critical junctions for temporary manual synchronization." },
+          { "action": "Clear Build-up", "details": "Mobilize clearing teams to reduce queue spillback and prevent intersection blocking." },
+          { "action": "Inform Public & Operators", "details": "Notify motorists and delivery fleets about delays and alternate routes." },
+          { "action": "Prioritize Repair Crews", "details": "Coordinate with ISPs for urgent fiber repair scheduling and safe excavation." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_002_signal_comm_down",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T05:22:00.000Z",
+        "location": {
+          "zone": "ORR (Kadubeesanahalli–Bellandur)",
+          "coordinates": { "lat": 12.9408, "lon": 77.6803 },
+          "granularity": "corridor"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "BTP_TMC" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Metro AFC & Ticketing Offline (Kadugodi–Whitefield)",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Activate Manual Ticketing", "details": "Implement manual token issuance and temporary queuing to maintain passenger flow." },
+          { "action": "Provide Passenger Guidance", "details": "Station staff to direct passengers to alternate payment and boarding processes to avoid crowding." },
+          { "action": "Coordinate with ISPs", "details": "Expedite fiber repairs prioritizing metro AFC connectivity restoration." },
+          { "action": "Stagger Platform Entry", "details": "Use controlled entry to avoid platform overcrowding while manual operations continue." },
+          { "action": "Log Impact & Compensate", "details": "Capture service disruption metrics for post-incident compensation and service improvement." }
+        ]
+      },
+      "source_event": {
+        "eventId": "metr_003_ticketing_offline",
+        "dataType": "public_transit_metro",
+        "timestamp": "2025-08-31T05:30:00.000Z",
+        "location": {
+          "zone": "Kadugodi–Whitefield Stations",
+          "coordinates": { "lat": 12.9960, "lon": 77.7580 },
+          "granularity": "corridor"
+        },
+        "metadata": { "confidence": 0.87, "data_source": "BMRCL_IT" }
+      }
+    }
+  ]
+  

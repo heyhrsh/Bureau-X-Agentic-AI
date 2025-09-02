@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Overcrowding Alert During Flash Sale (Phoenix Marketcity)",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Limit Entry Flow", "details": "Control entry points and temporarily stop new entrants until congestion reduces." },
+          { "action": "Open Additional Exits", "details": "Use all available egress routes and guide shoppers via staff to prevent choke points." },
+          { "action": "Deploy Crowd Marshals", "details": "Position marshals at stairwells and key junctions to manage directional flow." },
+          { "action": "Set Up Holding Areas", "details": "Create secure holding zones outside the mall to stage dispersed crowds." },
+          { "action": "Coordinate with Event Organizers", "details": "Manage promotion timing to reduce simultaneous demand and future risk." }
+        ]
+      },
+      "source_event": {
+        "eventId": "publ_001_overcrowd_alert",
+        "dataType": "public_event",
+        "timestamp": "2025-08-31T12:25:00.000Z",
+        "location": {
+          "zone": "Phoenix Marketcity",
+          "coordinates": { "lat": 12.9967, "lon": 77.6959 },
+          "granularity": "facility"
+        },
+        "metadata": { "confidence": 0.88, "data_source": "CCTV_ANALYTICS" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "False Alarm Stampede & Injuries",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Triage Injured", "details": "Immediate medical triage for reported injuries; dispatch ambulances as required." },
+          { "action": "Control Re-entry", "details": "Prevent re-entry until safety clearance and avoid repeat panic triggers." },
+          { "action": "Investigate Trigger", "details": "Determine source of false alarm and take corrective action (staff training, signage, announcements)." },
+          { "action": "Provide Psychological Support", "details": "Offer counseling support for traumatized individuals and families." },
+          { "action": "Review Evacuation Protocols", "details": "Assess evacuation flow and improve signage and staff training to reduce stampede risk." }
+        ]
+      },
+      "source_event": {
+        "eventId": "crim_002_false_alarm_stampede",
+        "dataType": "crime_report",
+        "timestamp": "2025-08-31T12:30:00.000Z",
+        "location": {
+          "zone": "Phoenix Marketcity",
+          "coordinates": { "lat": 12.9967, "lon": 77.6959 },
+          "granularity": "facility"
+        },
+        "metadata": { "confidence": 0.86, "data_source": "POLICE_112" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Perimeter Road Closures & Access Problems",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Open Priority Lanes for EMS", "details": "Keep designated perimeter lanes clear for ambulance and fire services at all times." },
+          { "action": "Stagger Mall Access", "details": "Control outbound traffic to avoid gridlock and coordinate with tow operators to remove illegal parking." },
+          { "action": "Coordinate with BTP_TMC", "details": "Adjust signal timings and enforce closures to prioritize emergency ingress/egress." },
+          { "action": "Provide Shuttle & Pickup Points", "details": "Designate off-site pickup points to relieve pressure on mall access roads." },
+          { "action": "Debrief & Update Protocols", "details": "Conduct post-incident review to update emergency response and false-alarm handling procedures." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_003_perimeter_closure",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T12:36:00.000Z",
+        "location": {
+          "zone": "Mahadevapura Perimeter Roads",
+          "coordinates": { "lat": 12.9945, "lon": 77.6950 },
+          "granularity": "neighborhood"
+        },
+        "metadata": { "confidence": 0.9, "data_source": "BTP_TMC" }
+      }
+    }
+  ]
+  

@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "Slow Ticket Scanning at M. Chinnaswamy Gates",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Scale Scanning Staff", "details": "Add manual scanning stations and staff to accelerate entry throughput." },
+          { "action": "Use Temporary Queues", "details": "Set up controlled, roped queues to manage fan flow and prevent bunching." },
+          { "action": "Provide Real-time Wait Info", "details": "Display expected wait times and direct fans to less-busy gates." },
+          { "action": "Coordinate with Transit", "details": "Notify metro and bus operators of gate issues to stagger arrivals." },
+          { "action": "Prepare Medical Posts", "details": "Place first-aid units near gates for crowd-related incidents." }
+        ]
+      },
+      "source_event": {
+        "eventId": "publ_001_gate_open",
+        "dataType": "public_event",
+        "timestamp": "2025-08-31T10:30:00.000Z",
+        "location": {
+          "zone": "M. Chinnaswamy Stadium",
+          "coordinates": { "lat": 12.9788, "lon": 77.5996 },
+          "granularity": "facility"
+        },
+        "metadata": { "confidence": 0.88, "data_source": "EVENT_CONTROL" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Innings Break Surge at Cubbon Park & MG Road Stations",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Enforce One-way Flows", "details": "Implement one-way passenger flow patterns at stations to reduce cross-traffic and bottlenecks." },
+          { "action": "Mobilize Extra Trains/Staff", "details": "BMRCL to prepare additional staff and rolling stock to handle mid-game spikes." },
+          { "action": "Surface Transit Supplement", "details": "Deploy BMTC buses at nearby stops to assist with dispersal." },
+          { "action": "Queue Management", "details": "Station marshals to manage platform queues and prevent platform edge overcrowding." },
+          { "action": "Communicate Timings", "details": "Announce expected congestion windows and advise fans on staggered departures." }
+        ]
+      },
+      "source_event": {
+        "eventId": "metr_002_post_innings_surge",
+        "dataType": "public_transit_metro",
+        "timestamp": "2025-08-31T14:55:00.000Z",
+        "location": {
+          "zone": "Cubbon Park & MG Road Stations",
+          "coordinates": { "lat": 12.9759, "lon": 77.6033 },
+          "granularity": "station"
+        },
+        "metadata": { "confidence": 0.92, "data_source": "BMRCL_OC" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Post-match Dispersal Gridlock Around Stadium Loop",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Enforce No-Parking & Tow", "details": "Remove illegal parking immediately to regain lane capacity for dispersal." },
+          { "action": "Stagger Exits", "details": "Open staggered exit schedules and direct fans to different transport nodes to distribute load." },
+          { "action": "Increase Shuttle Services", "details": "Provide dedicated match-time shuttle buses to key transit hubs to reduce private vehicle demand." },
+          { "action": "Deploy Traffic Officers", "details": "Position officers at choke points to manage merging flows and prevent gridlock." },
+          { "action": "Clear Routes for Emergency Access", "details": "Maintain open corridors for ambulances and fire services during high-density egress." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_003_dispersal_gridlock",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T18:20:00.000Z",
+        "location": {
+          "zone": "Stadium–Vittal Mallya–Residency Loop",
+          "coordinates": { "lat": 12.9768, "lon": 77.6020 },
+          "granularity": "corridor"
+        },
+        "metadata": { "confidence": 0.93, "data_source": "BTP_TMC" }
+      }
+    }
+  ]
+  

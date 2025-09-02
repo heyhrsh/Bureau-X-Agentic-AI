@@ -1,0 +1,75 @@
+[
+    {
+      "plan": {
+        "plan_title": "ATC Glitch on Purple Line (Byappanahalli Depot)",
+        "priority": "MEDIUM",
+        "steps": [
+          { "action": "Hold Trains Safely", "details": "Instruct drivers to maintain safe separation; prevent unnecessary train movements until ATC status is clear." },
+          { "action": "Activate Manual Control Procedures", "details": "BMRCL ops to switch to manual signaling where feasible and safe to maintain partial service." },
+          { "action": "Notify Passengers", "details": "Broadcast delays via station announcements, mobile alerts, and social channels with alternate options." },
+          { "action": "Diagnostic & Reset", "details": "Trigger immediate SCADA diagnostics and attempt controlled system reset with vendor support." },
+          { "action": "Crowd Management Preparation", "details": "Position staff at busy stations to assist boarding/alighting once services resume." }
+        ]
+      },
+      "source_event": {
+        "eventId": "metr_001_atc_fault",
+        "dataType": "public_transit_metro",
+        "timestamp": "2025-08-31T12:10:00.000Z",
+        "location": {
+          "zone": "Byappanahalli Depot",
+          "coordinates": { "lat": 12.9953, "lon": 77.6630 },
+          "granularity": "station"
+        },
+        "metadata": { "confidence": 0.91, "data_source": "BMRCL_SCADA" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Platform Overcrowding at MG Road",
+        "priority": "HIGH",
+        "steps": [
+          { "action": "Controlled Entry", "details": "Limit inbound passenger flow with turnstile holds and staff-managed queues to prevent platform hazards." },
+          { "action": "Extend Platform Staff", "details": "Deploy additional station staff and police to manage queues and assist vulnerable passengers." },
+          { "action": "Open Alternate Exits", "details": "Guide passengers to less crowded exits and surface transport options to disperse platform crowd." },
+          { "action": "Real-time Passenger Updates", "details": "Frequent announcements and digital updates about expected wait times and alternate routes." },
+          { "action": "Prepare Medical Aid", "details": "Station medics on standby for heat/stress-related cases due to crowding." }
+        ]
+      },
+      "source_event": {
+        "eventId": "metr_002_platform_crowd",
+        "dataType": "public_transit_metro",
+        "timestamp": "2025-08-31T12:16:00.000Z",
+        "location": {
+          "zone": "MG Road Station",
+          "coordinates": { "lat": 12.9756, "lon": 77.6056 },
+          "granularity": "station"
+        },
+        "metadata": { "confidence": 0.94, "data_source": "CCTV_ANALYTICS" }
+      }
+    },
+    {
+      "plan": {
+        "plan_title": "Feeder Surge & CBD Lane Saturation",
+        "priority": "CRITICAL",
+        "steps": [
+          { "action": "Deploy Feeder Control", "details": "Coordinate with ride-hailing and BMTC to stage vehicles off critical feeder routes and prioritize drop-offs away from congested nodes." },
+          { "action": "Temporary Bus Priority", "details": "Create temporary bus-only corridors or priority lanes to move large passenger volumes efficiently." },
+          { "action": "Enforce No-Stop Zones", "details": "Police to strictly enforce no-stopping on MG Road and adjacent loops to prevent blockage." },
+          { "action": "Escalate to City Ops", "details": "Request city-level traffic routing and incident support to manage long-duration disruptions." },
+          { "action": "After-Action Analysis", "details": "Collect ridership, headway, and crowd data to adjust contingency capacity planning." }
+        ]
+      },
+      "source_event": {
+        "eventId": "traf_003_feeder_overflow",
+        "dataType": "traffic",
+        "timestamp": "2025-08-31T12:22:00.000Z",
+        "location": {
+          "zone": "CBD Feeder Corridors",
+          "coordinates": { "lat": 12.9740, "lon": 77.5920 },
+          "granularity": "corridor"
+        },
+        "metadata": { "confidence": 0.95, "data_source": "BMTC_AVL" }
+      }
+    }
+  ]
+  
